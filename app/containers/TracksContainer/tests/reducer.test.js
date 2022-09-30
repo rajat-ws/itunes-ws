@@ -32,7 +32,7 @@ describe('TracksContainer reducer tests', () => {
     ).toEqual(expectedResult);
   });
 
-  it('should ensure that whilst FAILURE_GET_TRACKS has been dispatched, then grid data should be erased whille the tracksError iss updated with error message', () => {
+  it('should ensure that whilst FAILURE_GET_TRACKS has been dispatched, then tracks data should be erased whille the tracksError iss updated with error message', () => {
     const error = 'something_went_wrong';
     const expectedResult = { ...state, tracksError: error, tracksData: {} };
     expect(
@@ -43,7 +43,7 @@ describe('TracksContainer reducer tests', () => {
     ).toEqual(expectedResult);
   });
 
-  it('should ensure that whilst CLEAR_TRACKS_DATA is dispatched, grid data is being cleared', () => {
+  it('should ensure that whilst CLEAR_TRACKS_DATA is dispatched, tracks data is being cleared', () => {
     expect(
       tracksContainerReducer(state, {
         type: trackContainerTypes.CLEAR_TRACKS_DATA

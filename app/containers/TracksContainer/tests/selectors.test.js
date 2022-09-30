@@ -47,17 +47,17 @@ describe('TracksContainer selector tests', () => {
     expect(TracksContainerSelector(mockedState)).toEqual(mockedState.TracksContainer);
   });
 
-  it('should select the search term', () => {
+  it('should select the tracks name', () => {
     const trackNameSelector = selectTrackName();
     expect(trackNameSelector(mockedState)).toEqual(trackName);
   });
 
-  it('should select the grid data', () => {
+  it('should select the tracks data', () => {
     const tracksDataSelector = selectTracksData();
     expect(tracksDataSelector(mockedState)).toEqual(tracksData);
   });
 
-  it('should select the search error', () => {
+  it('should select the tracks error', () => {
     const tracksErrorSelector = selectTracksError();
     expect(tracksErrorSelector(mockedState)).toEqual(tracksError);
   });

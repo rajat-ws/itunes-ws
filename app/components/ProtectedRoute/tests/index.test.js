@@ -3,7 +3,7 @@ import { renderProvider } from '@utils/testUtils';
 import ProtectedRoute from '../index';
 import '@testing-library/jest-dom';
 import { Router } from 'react-router-dom';
-import ItunesContainer from '@app/containers/ItunesContainer';
+import TracksContainer from '@app/containers/TracksContainer';
 import { createBrowserHistory } from 'history';
 
 jest.mock('@utils/routeConstants', () => {
@@ -28,21 +28,21 @@ describe('<ProtectedRoute />', () => {
 
   it('should render and match the snapshot', () => {
     const { baseElement } = renderProvider(
-      <ProtectedRoute isLoggedIn={true} render={ItunesContainer} exact={true} path="/" />
+      <ProtectedRoute isLoggedIn={true} render={TracksContainer} exact={true} path="/" />
     );
     expect(baseElement).toMatchSnapshot();
   });
 
-  // it('should  render the component if user logged in and access protected route', () => {
-  //   const { getByTestId } = renderProvider(
-  //     <ProtectedRoute isLoggedIn={true} render={ItunesContainer} exact={true} path="/" />
-  //   );
-  //   expect(getByTestId('redirect')).toBeTruthy();
-  // });
+  it('should  render the component if user logged in and access protected route', () => {
+    const { queryByText } = renderProvider(
+      <ProtectedRoute isLoggedIn={true} render={TracksContainer} exact={true} path="/" />
+    );
+    expect(queryByText('TracksContainer page')).toBeTruthy();
+  });
 
   it('should not render component if user is not logged in', () => {
     renderProvider(
-      <ProtectedRoute isLoggedIn={false} render={ItunesContainer} exact={true} path="/" handleLogout={submitSpy} />
+      <ProtectedRoute isLoggedIn={false} render={TracksContainer} exact={true} path="/" handleLogout={submitSpy} />
     );
     expect(submitSpy).toHaveBeenCalledTimes(1);
   });
@@ -51,7 +51,7 @@ describe('<ProtectedRoute />', () => {
     const history = createBrowserHistory();
     renderProvider(
       <Router history={history}>
-        <ProtectedRoute isLoggedIn={false} render={ItunesContainer} exact={true} path="/login" />
+        <ProtectedRoute isLoggedIn={false} render={TracksContainer} exact={true} path="/login" />
       </Router>
     );
     expect(history.location.pathname).toBe('/login');
@@ -61,7 +61,7 @@ describe('<ProtectedRoute />', () => {
     const history = createBrowserHistory();
     renderProvider(
       <Router history={history}>
-        <ProtectedRoute isLoggedIn={true} render={ItunesContainer} exact={true} path="/login" />
+        <ProtectedRoute isLoggedIn={true} render={TracksContainer} exact={true} path="/login" />
       </Router>
     );
     expect(history.location.pathname).toBe('/');

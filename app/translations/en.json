@@ -1,10 +1,10 @@
 {
   "itunes_title": "iTunes store",
   "songs_search": "itunes song search",
-  "songs_list": "A list of songs is going to be displayed",
+  "songs_list": "Tracks List",
   "songs_search_by_user": "Song name you want to listen currently",
   "search_songs": "Search songs",
-  "search_query": "Search query: {searchTerm}",
+  "search_query": "Search query: {trackName}",
   "matching_songs": "Total number of matching songs: {totalCount}",
   "something_went_wrong": "Sorry. Something went wrong! Please try again in sometime.",
   "stories": "Go to Storybook",

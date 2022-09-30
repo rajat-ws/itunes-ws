@@ -1,13 +1,13 @@
 /*
- ** Tests for ItunesContainer
+ ** Tests for TracksContainer
  */
 import React from 'react';
 import { renderProvider } from '@app/utils/testUtils';
-import ItunesContainer from '../index';
+import TracksContainer from '../index';
 
-describe('ItunesContainer Tests', () => {
+describe('TracksContainer Tests', () => {
   it('should render and match to the snapshot', () => {
-    const { baseElement } = renderProvider(<ItunesContainer />);
+    const { baseElement } = renderProvider(<TracksContainer />);
     expect(baseElement).toMatchSnapshot();
   });
 });

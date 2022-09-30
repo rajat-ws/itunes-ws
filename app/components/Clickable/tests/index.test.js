@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { renderWithIntl } from '@utils/testUtils';
+import { fireEvent } from '@testing-library/dom';
 import Clickable from '../index';
 
 describe('<Clickable /> component tests', () => {
@@ -21,5 +22,17 @@ describe('<Clickable /> component tests', () => {
   it('should contain 1 Clickable component', () => {
     const { getAllByTestId } = renderWithIntl(<Clickable textId="songs_list" onClick={clickSpy} />);
     expect(getAllByTestId('clickable').length).toBe(1);
+  });
+
+  it('should contain render the text according to the textId', () => {
+    const { getAllByText } = renderWithIntl(<Clickable textId="songs_list" onClick={clickSpy} />);
+    expect(getAllByText(/Tracks List/).length).toBe(1);
+  });
+
+  it('should call the prop onClick when the clickable component is clicked', () => {
+    const { getAllByText, queryByText } = renderWithIntl(<Clickable onClick={clickSpy} textId="songs_list" />);
+    expect(getAllByText(/Tracks List/).length).toBe(1);
+    fireEvent.click(queryByText(/Tracks List/));
+    expect(clickSpy).toBeCalled();
   });
 });

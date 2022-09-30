@@ -13,7 +13,7 @@ export const initialState = {
   tracksError: null
 };
 
-export const { Types: TracksContainerTypes, Creators: TracksContainerCreators } = createActions({
+export const { Types: trackContainerTypes, Creators: tracksContainerCreators } = createActions({
   requestGetTracks: ['trackName'],
   successGetTracks: ['data'],
   failureGetTracks: ['error'],
@@ -21,29 +21,29 @@ export const { Types: TracksContainerTypes, Creators: TracksContainerCreators } 
 });
 
 /* eslint-disable default-case, no-param-reassign */
-export const TracksContainerReducer = (state = initialState, action) =>
+export const tracksContainerReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case TracksContainerTypes.REQUEST_GET_TRACKS:
+      case trackContainerTypes.REQUEST_GET_TRACKS:
         draft.trackName = action.trackName;
         break;
 
-      case TracksContainerTypes.SUCCESS_GET_TRACKS:
+      case trackContainerTypes.SUCCESS_GET_TRACKS:
         draft.tracksError = null;
         draft.tracksData = action.data;
         break;
 
-      case TracksContainerTypes.FAILURE_GET_TRACKS:
+      case trackContainerTypes.FAILURE_GET_TRACKS:
         draft.tracksError = action.error;
         draft.trackName = null;
         draft.tracksData = {};
         break;
 
-      case TracksContainerTypes.CLEAR_TRACKS_DATA:
+      case trackContainerTypes.CLEAR_TRACKS_DATA:
         draft.tracksData = {};
         draft.trackName = null;
         break;
     }
   });
 
-export default TracksContainerReducer;
+export default tracksContainerReducer;

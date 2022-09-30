@@ -1,9 +1,9 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { getSongs } from '@app/services/itunesApi';
-import { TracksContainerTypes, TracksContainerCreators } from './reducer';
+import { trackContainerTypes, tracksContainerCreators } from './reducer';
 
-const { REQUEST_GET_TRACKS } = TracksContainerTypes;
-const { successGetTracks, failureGetTracks } = TracksContainerCreators;
+const { REQUEST_GET_TRACKS } = trackContainerTypes;
+const { successGetTracks, failureGetTracks } = tracksContainerCreators;
 
 export function* requestGetTracks(action) {
   const res = yield call(getSongs, action.trackName);
@@ -17,7 +17,7 @@ export function* requestGetTracks(action) {
   }
 }
 
-//exporting TracksContainer saga
+//exporting tracksContainer saga
 export default function* tracksContainerSaga() {
   yield takeLatest(REQUEST_GET_TRACKS, requestGetTracks);
 }

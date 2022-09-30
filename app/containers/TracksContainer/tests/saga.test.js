@@ -7,7 +7,7 @@ import { takeLatest, call, put } from 'redux-saga/effects';
 import { getSongs } from '@services/itunesApi';
 import { apiResponseGenerator } from '@utils/testUtils';
 import tracksContainerSaga, { requestGetTracks } from '../saga';
-import { TracksContainerTypes } from '../reducer';
+import { trackContainerTypes } from '../reducer';
 
 describe('TracksContainer saga tests', () => {
   const generator = tracksContainerSaga();
@@ -15,7 +15,7 @@ describe('TracksContainer saga tests', () => {
   let requestSongsGenerator = requestGetTracks({ trackName });
 
   it('should start task to watch for REQUEST_GET_TRACKS action', () => {
-    expect(generator.next().value).toEqual(takeLatest(TracksContainerTypes.REQUEST_GET_TRACKS, requestGetTracks));
+    expect(generator.next().value).toEqual(takeLatest(trackContainerTypes.REQUEST_GET_TRACKS, requestGetTracks));
   });
 
   it('should ensure that the action FAILURE_GET_TRACKS is dispatched when the api call fails', () => {
@@ -26,7 +26,7 @@ describe('TracksContainer saga tests', () => {
     };
     expect(requestSongsGenerator.next(apiResponseGenerator(false, errorResponse)).value).toEqual(
       put({
-        type: TracksContainerTypes.FAILURE_GET_TRACKS,
+        type: trackContainerTypes.FAILURE_GET_TRACKS,
         error: errorResponse
       })
     );
@@ -42,7 +42,7 @@ describe('TracksContainer saga tests', () => {
     };
     expect(requestSongsGenerator.next(apiResponseGenerator(true, sucessSongsResponse)).value).toEqual(
       put({
-        type: TracksContainerTypes.SUCCESS_GET_TRACKS,
+        type: trackContainerTypes.SUCCESS_GET_TRACKS,
         data: sucessSongsResponse
       })
     );

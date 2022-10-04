@@ -12,12 +12,11 @@ exports[`<TrackComponent /> should render and match the snapshot 1`] = `
       >
         <div
           class="ant-image"
-          style="width: 80%; height: 250px;"
+          style="width: 80%;"
         >
           <img
             class="ant-image-img"
             src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdribbble.com%2Fshots%2F14395014-Music-Logo&psig=AOvVaw3I_T0J8_ZRKW_g4VF_KmKz&ust=1630933127025000&source=images&cd=vfe&ved=2ahUKEwiT5uO-8efyAhWVHLcAHVSbCvQQjRx6BAgAEAk"
-            style="height: 250px;"
           />
           <div
             class="ant-image-mask"
@@ -52,11 +51,12 @@ exports[`<TrackComponent /> should render and match the snapshot 1`] = `
           class="TrackComponent__StyledDescription-sc-1y7fh5t-1 ehlPZI"
         >
           <h1
-            class="ant-typography"
-            style="font-size: 18px;"
+            class="ant-typography TrackComponent__StyledTitle-sc-1y7fh5t-2 kLbayd"
           >
             <i>
+               
               Arijit
+               
             </i>
           </h1>
           <div
@@ -73,7 +73,7 @@ exports[`<TrackComponent /> should render and match the snapshot 1`] = `
           </div>
         </div>
         <button
-          class="ant-btn TrackComponent__PlayTrackBtn-sc-1y7fh5t-2 keieDh"
+          class="ant-btn TrackComponent__PlayTrackBtn-sc-1y7fh5t-4 gQthud"
           type="button"
         >
           <span>

@@ -6,11 +6,11 @@
 
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { isEmpty } from 'lodash';
-import { colors } from '@app/themes/index';
-import If from '@components/If';
+import { colors, fonts } from '@app/themes/index';
+import styled from 'styled-components';
 import { Card, Image, Typography, Button } from 'antd';
+import If from '@components/If';
 
 const { Title, Paragraph } = Typography;
 
@@ -27,13 +27,32 @@ const StyledDescription = styled.div`
   flex-direction: column;
 `;
 
+const StyledTitle = styled(Title)`
+  && {
+    ${fonts.size.xRegular}
+  }
+`;
+
+const StyledSpan = styled.span`
+  && {
+    color: ${colors.background};
+    ${fonts.weights.bold}
+    ${fonts.size.big}
+  }
+`;
+
 const PlayTrackBtn = styled(Button)`
   && {
-    background-color: ${colors.btnBackground};
+    background-color: ${colors.background};
     border: none;
-    color: ${colors.btnText};
+    color: ${colors.text};
     border-radius: 0.5rem;
     width: 100%;
+
+    &:hover {
+      background-color: ${colors.primaryLight};
+      color: ${colors.text};
+    }
   }
 `;
 
@@ -41,14 +60,12 @@ export function TrackComponent({ collectionName, artistName, imgUrl, trackName }
   return (
     <TrackCardContainer data-testid="track-component">
       <If condition={!isEmpty(imgUrl)} otherwise={<Image>No image available</Image>}>
-        <Image src={imgUrl} width="80%" height="250px" />
+        <Image src={imgUrl} width="80%" />
       </If>
 
       <StyledDescription>
-        <If condition={!isEmpty(artistName)} otherwise={<Title>No artist name available</Title>}>
-          <Title style={{ fontSize: 18 }} italic={true}>
-            {artistName}
-          </Title>
+        <If condition={!isEmpty(artistName)} otherwise={<StyledTitle>No artist name available</StyledTitle>}>
+          <StyledTitle italic={true}> {artistName} </StyledTitle>
         </If>
 
         <If condition={!isEmpty(collectionName)} otherwise={<Paragraph>No collection name available</Paragraph>}>
@@ -56,7 +73,9 @@ export function TrackComponent({ collectionName, artistName, imgUrl, trackName }
         </If>
 
         <If condition={!isEmpty(trackName)} otherwise={<Paragraph>No track name available</Paragraph>}>
-          <Paragraph> Track name: {trackName} </Paragraph>
+          <Paragraph>
+            <StyledSpan> Track name: </StyledSpan> {trackName}
+          </Paragraph>
         </If>
       </StyledDescription>
 

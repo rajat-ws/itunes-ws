@@ -7,25 +7,29 @@ import { fireEvent } from '@testing-library/dom';
 import { TracksContainerTest as TracksContainer } from '../index';
 
 describe('TracksContainer Tests', () => {
-  //testing for dispatchTrackNames
-  let mockDispatchTrackNames;
+  //testing for dispatchRequestTracksData
+  let mockdispatchRequestTracksData;
 
   beforeEach(() => {
-    mockDispatchTrackNames = jest.fn();
+    mockdispatchRequestTracksData = jest.fn();
   });
   it('should render and match to the snapshot', () => {
-    const { baseElement } = renderWithIntl(<TracksContainer dispatchTrackNames={mockDispatchTrackNames} />);
+    const { baseElement } = renderWithIntl(
+      <TracksContainer dispatchRequestTracksData={mockdispatchRequestTracksData} />
+    );
     expect(baseElement).toMatchSnapshot();
   });
 
   // dispatch track names
-  it('should call dispatchTrackNames on change', async () => {
-    const { getByTestId } = renderWithIntl(<TracksContainer dispatchTrackNames={mockDispatchTrackNames} />);
+  it('should call dispatchRequestTracksData on change', async () => {
+    const { getByTestId } = renderWithIntl(
+      <TracksContainer dispatchRequestTracksData={mockdispatchRequestTracksData} />
+    );
     fireEvent.change(getByTestId('search-bar'), {
       target: { value: 'Arijit' }
     });
     await timeout(500);
-    expect(mockDispatchTrackNames).toBeCalled();
+    expect(mockdispatchRequestTracksData).toBeCalled();
   });
 
   // testing For component
@@ -53,7 +57,7 @@ describe('TracksContainer Tests', () => {
     let searchTrackNamesSpy = jest.fn();
     let clearTracksDataSpy = jest.fn();
     const { getByTestId } = renderWithIntl(
-      <TracksContainer dispatchTrackNames={searchTrackNamesSpy} dispatchClearTracksData={clearTracksDataSpy} />
+      <TracksContainer dispatchRequestTracksData={searchTrackNamesSpy} dispatchClearTracksData={clearTracksDataSpy} />
     );
 
     fireEvent.change(getByTestId('search-bar'), {

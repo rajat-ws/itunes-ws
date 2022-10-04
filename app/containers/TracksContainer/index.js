@@ -1,20 +1,20 @@
 import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { debounce, get, isEmpty } from 'lodash';
 import styled from 'styled-components';
+import { Input, Card, Skeleton } from 'antd';
+import { debounce, get, isEmpty } from 'lodash';
 import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { injectSaga } from 'redux-injectors';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Input, Card, Skeleton } from 'antd';
-import { tracksContainerCreators } from './reducer';
-import tracksContainerSaga from './saga';
 import T from '@components/T';
 import For from '@app/components/For';
 import If from '@app/components/If';
 import TrackComponent from '@app/components/TrackComponent/index';
-import { selectTrackName, selectTracksContainer, selectTracksData, selectTracksLoading } from './selectors';
+import tracksContainerSaga from './saga';
+import { tracksContainerCreators } from './reducer';
+import { selectTrackName, selectTracksData, selectTracksLoading } from './selectors';
 
 const { Search } = Input;
 
@@ -58,19 +58,19 @@ export function TracksContainer({
   tracksData,
   trackName,
   intl,
-  dispatchTrackNames,
+  dispatchRequestTracksData,
   dispatchClearTracksData,
   tracksLoading
 }) {
   useEffect(() => {
     if (trackName && !tracksData?.results?.length) {
-      dispatchTrackNames(trackName);
+      dispatchRequestTracksData(trackName);
     }
   }, []);
 
   const handleOnChange = trackname => {
     if (!isEmpty(trackname)) {
-      dispatchTrackNames(trackname);
+      dispatchRequestTracksData(trackname);
     } else {
       dispatchClearTracksData();
     }
@@ -120,7 +120,7 @@ TracksContainer.propTypes = {
   maxWidth: PropTypes.number,
   padding: PropTypes.number,
   trackName: PropTypes.string,
-  dispatchTrackNames: PropTypes.func,
+  dispatchRequestTracksData: PropTypes.func,
   dispatchClearTracksData: PropTypes.func,
   intl: PropTypes.object,
   tracksError: PropTypes.object,
@@ -136,7 +136,6 @@ TracksContainer.defaultProps = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  tracksContainer: selectTracksContainer(),
   tracksData: selectTracksData(),
   trackName: selectTrackName(),
   tracksLoading: selectTracksLoading()
@@ -145,7 +144,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   const { requestGetTracks, clearTracksData } = tracksContainerCreators;
   return {
-    dispatchTrackNames: trackName => dispatch(requestGetTracks(trackName)),
+    dispatchRequestTracksData: trackName => dispatch(requestGetTracks(trackName)),
     dispatchClearTracksData: () => dispatch(clearTracksData())
   };
 }

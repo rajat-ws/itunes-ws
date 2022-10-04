@@ -6,11 +6,11 @@
 
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { isEmpty } from 'lodash';
+import { colors } from '@app/themes/index';
 import If from '@components/If';
 import { Card, Image, Typography, Button } from 'antd';
-import styled from 'styled-components';
-import { colors } from '@app/themes/index';
 
 const { Title, Paragraph } = Typography;
 

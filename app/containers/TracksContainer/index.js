@@ -1,20 +1,20 @@
 import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { debounce, get, isEmpty } from 'lodash';
+import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { injectSaga } from 'redux-injectors';
 import { createStructuredSelector } from 'reselect';
-import styled from 'styled-components';
+import { compose } from 'redux';
+import { Input, Card, Skeleton } from 'antd';
 import { tracksContainerCreators } from './reducer';
 import tracksContainerSaga from './saga';
-import { selectTrackName, selectTracksContainer, selectTracksData, selectTracksLoading } from './selectors';
-import { debounce, get, isEmpty } from 'lodash';
-import { Input, Card, Skeleton } from 'antd';
 import T from '@components/T';
 import For from '@app/components/For';
 import If from '@app/components/If';
 import TrackComponent from '@app/components/TrackComponent/index';
+import { selectTrackName, selectTracksContainer, selectTracksData, selectTracksLoading } from './selectors';
 
 const { Search } = Input;
 

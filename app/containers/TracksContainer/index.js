@@ -48,7 +48,7 @@ const TrackGrid = styled.div`
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-evenly;
   margin: 0 auto;
 `;
 

@@ -2,7 +2,7 @@ export default {
   itunes: {
     route: '/',
     props: {
-      maxwidth: 500,
+      maxWidth: 32,
       padding: 20
     },
     exact: true

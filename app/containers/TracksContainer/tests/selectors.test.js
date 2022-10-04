@@ -7,7 +7,8 @@ import {
   selectTracksContainer,
   selectTracksContainerDomain,
   selectTracksError,
-  selectTrackName
+  selectTrackName,
+  selectTracksLoading
 } from '../selectors';
 
 describe('TracksContainer selector tests', () => {
@@ -15,10 +16,12 @@ describe('TracksContainer selector tests', () => {
   let trackName;
   let tracksError;
   let tracksData;
+  let tracksLoading;
   let initialState = {
     tracksData: {},
     tracksError: null,
-    trackName: null
+    trackName: null,
+    tracksLoading: false
   };
   let mockedStateWithoutInitialState = {};
 
@@ -26,10 +29,11 @@ describe('TracksContainer selector tests', () => {
     (trackName = 'Naina'), (tracksData = { songName: 'Naina', songArtist: 'Arijit Singh' });
     tracksError = 'Some error occured whille finding requested information';
     mockedState = {
-      TracksContainer: {
+      tracksContainer: {
         trackName,
         tracksError,
-        tracksData
+        tracksData,
+        tracksLoading
       }
     };
   });
@@ -39,12 +43,12 @@ describe('TracksContainer selector tests', () => {
   });
 
   it('should return state', () => {
-    expect(selectTracksContainerDomain(mockedState)).toEqual(mockedState.TracksContainer);
+    expect(selectTracksContainerDomain(mockedState)).toEqual(mockedState.tracksContainer);
   });
 
   it('should select the user state', () => {
-    const TracksContainerSelector = selectTracksContainer();
-    expect(TracksContainerSelector(mockedState)).toEqual(mockedState.TracksContainer);
+    const tracksContainerSelector = selectTracksContainer();
+    expect(tracksContainerSelector(mockedState)).toEqual(mockedState.tracksContainer);
   });
 
   it('should select the tracks name', () => {
@@ -60,5 +64,10 @@ describe('TracksContainer selector tests', () => {
   it('should select the tracks error', () => {
     const tracksErrorSelector = selectTracksError();
     expect(tracksErrorSelector(mockedState)).toEqual(tracksError);
+  });
+
+  it('should select the tracksLoading state', () => {
+    const tracksLoadingSelector = selectTracksLoading();
+    expect(tracksLoadingSelector(mockedState)).toEqual(tracksLoading);
   });
 });

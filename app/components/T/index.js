@@ -13,8 +13,8 @@ import { fonts } from '@app/themes';
 
 const StyledText = styled.p`
   && {
-    ${props => props.marginBottom && `margin-bottom: ${props.marginBottom}px;`};
-    ${props => props.paddingBottom && `margin-bottom: ${props.paddingBottom}px;`};
+    ${props => props.marginBottom && `margin-bottom: ${props.marginBottom}rem;`};
+    ${props => props.paddingBottom && `padding-bottom: ${props.paddingBottom}rem;`};
     ${props => props.font()};
   }
 `;

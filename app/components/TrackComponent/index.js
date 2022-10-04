@@ -6,33 +6,65 @@
 
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Image, Typography } from 'antd';
+import { isEmpty } from 'lodash';
+import If from '@components/If';
+import { Card, Image, Typography, Button } from 'antd';
 import styled from 'styled-components';
+import { colors } from '@app/themes/index';
 
-const { Title } = Typography;
+const { Title, Paragraph } = Typography;
 
 const TrackCardContainer = styled(Card)`
   && {
-    margin: 20px 0;
-    display: flex;
-    width: ${props => props.maxwidth}px;
-    flex-direction: column;
-    border-radius: 16px;
-    background-color: red;
+    border-radius: 0.5rem;
+    width: ${props => (props.width ? props.width : '25rem')};
+    border: none;
+    background-color: ${colors.secondary};
+    text-align: center;
+`;
+
+const StyledDescription = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const PlayTrackBtn = styled(Button)`
+  && {
+    background-color: ${colors.btnBackground};
+    border: none;
+    color: ${colors.btnText};
+    border-radius: 0.5rem;
+    width: 100%;
   }
 `;
 
-export function TrackComponent({ artistId, collectionName, artistName, artworkUrl100, trackName, songId, maxwidth }) {
+export function TrackComponent({ collectionName, artistName, imgUrl, trackName }) {
   return (
     <TrackCardContainer data-testid="track-component">
-      <Image src={artworkUrl100} width="80%" preview="false" height="250px" />
-      <Title> {artistName} </Title>
-      <Title> {collectionName} </Title>
+      <If condition={!isEmpty(imgUrl)} otherwise={<Image>No image available</Image>}>
+        <Image src={imgUrl} width="80%" height="250px" />
+      </If>
+
+      <StyledDescription>
+        <If condition={!isEmpty(artistName)} otherwise={<Title>No artist name available</Title>}>
+          <Title style={{ fontSize: 18 }} italic={true}>
+            {artistName}
+          </Title>
+        </If>
+
+        <If condition={!isEmpty(collectionName)} otherwise={<Paragraph>No collection name available</Paragraph>}>
+          <Paragraph> {collectionName} </Paragraph>
+        </If>
+
+        <If condition={!isEmpty(trackName)} otherwise={<Paragraph>No track name available</Paragraph>}>
+          <Paragraph> Track name: {trackName} </Paragraph>
+        </If>
+      </StyledDescription>
+
+      <PlayTrackBtn>Play</PlayTrackBtn>
     </TrackCardContainer>
   );
 }
-
-TrackComponent.propTypes = {};
 
 export default memo(TrackComponent);
 
@@ -41,26 +73,7 @@ TrackComponent.propTypes = {
   artistName: PropTypes.string,
   collectionName: PropTypes.string,
   trackName: PropTypes.string,
-  maxwidth: PropTypes.number,
+  maxWidth: PropTypes.number,
   songId: PropTypes.number,
-  artworkUrl100: PropTypes.string
+  imgUrl: PropTypes.string
 };
-
-// artistId artistName trackName collectionName previewUrl artworkUrl30 artworkUrl60 artworkUrl100
-
-{
-  /* <CustomContainer data-testid="track-component">
-<If condition={!isEmpty(artistId)} otherwise={<T data-testid="name-unavailable" id="repo_name_unavailable" />}>
-  <T data-testid="name" id={'trackcomponent'} values={{ artistName: artistName }} />
-</If>
-<If
-  condition={!isEmpty(artistId)}
-  otherwise={<T data-testid="fullName-unavailable" id="repo_full_name_unavailable" />}
->
-  <T data-testid="fullName" id="repository_full_name" values={{ fullName: artistName }} />
-</If>
-<If condition={trackName} otherwise={<T data-testid="stargazers-unavaiable" id="repo_stars_unavailable" />}>
-  <T data-testid="stargazers" id="repository_stars" values={{ trackName: trackName }} />
-</If>
-</CustomContainer> */
-}

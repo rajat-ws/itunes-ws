@@ -30,6 +30,6 @@ describe('<T /> component tests', () => {
       id: 'tracks_list'
     };
     const styles = getComponentStyles(T, props);
-    expect(styles['margin-bottom']).toBe(`${props.marginBottom}px`);
+    expect(styles['margin-bottom']).toBe(`${props.marginBottom}rem`);
   });
 });

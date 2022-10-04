@@ -12,7 +12,7 @@ describe('TracksContainer reducer tests', () => {
   });
 
   it('should return the required state when an action of type REQUEST_GET_TRACKS is dispatched', () => {
-    const expectedResult = { ...state, trackName: 'Arijit Singh' };
+    const expectedResult = { ...state, trackName: 'Arijit Singh', tracksLoading: true };
     expect(
       tracksContainerReducer(state, {
         type: trackContainerTypes.REQUEST_GET_TRACKS,
@@ -23,7 +23,7 @@ describe('TracksContainer reducer tests', () => {
 
   it('should ensure that the REQUEST_GET_TRACKS is success and SUCCESS_GET_TRACKS is dispatched, returns the data and updates tracksData', () => {
     const data = { songName: 'Naina', songArtist: 'Arijit Singh' };
-    const expectedResult = { ...state, tracksError: null, tracksData: data };
+    const expectedResult = { ...state, tracksError: null, tracksData: data, tracksLoading: false };
     expect(
       tracksContainerReducer(state, {
         type: trackContainerTypes.SUCCESS_GET_TRACKS,
@@ -34,7 +34,7 @@ describe('TracksContainer reducer tests', () => {
 
   it('should ensure that whilst FAILURE_GET_TRACKS has been dispatched, then tracks data should be erased whille the tracksError iss updated with error message', () => {
     const error = 'something_went_wrong';
-    const expectedResult = { ...state, tracksError: error, tracksData: {} };
+    const expectedResult = { ...state, tracksError: error, tracksData: {}, tracksLoading: false };
     expect(
       tracksContainerReducer(state, {
         type: trackContainerTypes.FAILURE_GET_TRACKS,

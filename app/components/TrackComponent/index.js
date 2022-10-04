@@ -56,11 +56,11 @@ const PlayTrackBtn = styled(Button)`
   }
 `;
 
-export function TrackComponent({ collectionName, artistName, imgUrl, trackName }) {
+export function TrackComponent({ collectionName, artistName, imageUrl, trackName }) {
   return (
     <TrackCardContainer data-testid="track-component">
-      <If condition={!isEmpty(imgUrl)} otherwise={<Image>No image available</Image>}>
-        <Image src={imgUrl} width="80%" />
+      <If condition={!isEmpty(imageUrl)} otherwise={<Image>No image available</Image>}>
+        <Image src={imageUrl} width="80%" />
       </If>
 
       <StyledDescription>
@@ -93,5 +93,5 @@ TrackComponent.propTypes = {
   trackName: PropTypes.string,
   maxWidth: PropTypes.number,
   songId: PropTypes.number,
-  imgUrl: PropTypes.string
+  imageUrl: PropTypes.string
 };

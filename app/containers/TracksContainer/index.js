@@ -88,7 +88,7 @@ export function TracksContainer({
             <For
               of={loadedTrackSongs}
               ParentComponent={TrackGrid}
-              renderItem={(item, index) => <TrackComponent key={index} imgUrl={item.artworkUrl100} {...item} />}
+              renderItem={(item, index) => <TrackComponent key={index} imageUrl={item.artworkUrl100} {...item} />}
             />
           </Skeleton>
         </TitleCard>

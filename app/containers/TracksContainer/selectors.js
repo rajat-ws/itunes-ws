@@ -6,7 +6,7 @@ import { initialState } from './reducer';
  * Direct selector to the TracksContainer state domain
  */
 
-export const selectTracksContainerDomain = state => state.TracksContainer || initialState;
+export const selectTracksContainerDomain = state => state.tracksContainer || initialState;
 
 export const selectTracksContainer = () =>
   createSelector(
@@ -24,6 +24,12 @@ export const selectTracksError = () =>
   createSelector(
     selectTracksContainerDomain,
     substate => get(substate, 'tracksError')
+  );
+
+export const selectTracksLoading = () =>
+  createSelector(
+    selectTracksContainerDomain,
+    substate => get(substate, 'tracksLoading')
   );
 
 export const selectTracksData = () =>

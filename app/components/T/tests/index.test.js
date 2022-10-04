@@ -20,16 +20,16 @@ describe('<T /> component tests', () => {
   });
 
   it('should contain render the text according to the id', () => {
-    const { getAllByText } = renderWithIntl(<T id="songs_list" />);
+    const { getAllByText } = renderWithIntl(<T id="tracks_list" />);
     expect(getAllByText(/Tracks List/).length).toBe(1);
   });
 
   it('should have a margin-bottom of 5px when we pass marginBottom as 5', () => {
     const props = {
       marginBottom: 5,
-      id: 'songs_list'
+      id: 'tracks_list'
     };
     const styles = getComponentStyles(T, props);
-    expect(styles['margin-bottom']).toBe(`${props.marginBottom}px`);
+    expect(styles['margin-bottom']).toBe(`${props.marginBottom}rem`);
   });
 });

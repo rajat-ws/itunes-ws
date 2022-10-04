@@ -6,10 +6,10 @@
 
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty } from 'lodash';
-import { colors, fonts } from '@app/themes/index';
 import styled from 'styled-components';
 import { Card, Image, Typography, Button } from 'antd';
+import { isEmpty } from 'lodash';
+import { colors, fonts } from '@app/themes/index';
 import If from '@components/If';
 
 const { Title, Paragraph } = Typography;

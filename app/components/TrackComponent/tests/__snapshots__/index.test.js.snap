@@ -4,7 +4,7 @@ exports[`<TrackComponent /> should render and match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="ant-card ant-card-bordered TrackComponent__TrackCardContainer-sc-1y7fh5t-0 eRwnqH"
+      class="ant-card ant-card-bordered TrackComponent__TrackCardContainer-sc-1y7fh5t-0 hZfrIv"
       data-testid="track-component"
     >
       <div
@@ -73,7 +73,7 @@ exports[`<TrackComponent /> should render and match the snapshot 1`] = `
           </div>
         </div>
         <button
-          class="ant-btn TrackComponent__PlayTrackBtn-sc-1y7fh5t-2 cQQsMg"
+          class="ant-btn TrackComponent__PlayTrackBtn-sc-1y7fh5t-2 keieDh"
           type="button"
         >
           <span>

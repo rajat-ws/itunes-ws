@@ -18,8 +18,7 @@ const TrackCardContainer = styled(Card)`
   && {
     border-radius: 0.5rem;
     width: ${props => (props.width ? props.width : '25rem')};
-    border: none;
-    background-color: ${colors.secondary};
+    border: 1px solid ${colors.secondary};
     text-align: center;
 `;
 

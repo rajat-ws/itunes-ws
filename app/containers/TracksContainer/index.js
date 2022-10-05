@@ -81,10 +81,9 @@ export function TracksContainer({
   const handlePauseTrackWrapper = ref => {
     //track the current playing track
     setCurrentPlayingTrack(ref);
-
     const trackPaused = currentPlayingTrack?.current?.paused;
-    // check if ref currentSrc matches with current plaaying track and if not, pause the current track
-    if (!trackPaused && ref.current.currentSrc !== currentPlayingTrack?.current?.src) {
+    // check if ref currentSrc matches with current playing track and if not, pause the current track
+    if (!trackPaused && ref.current.src !== currentPlayingTrack?.current?.src) {
       currentPlayingTrack?.current?.pause();
     }
   };

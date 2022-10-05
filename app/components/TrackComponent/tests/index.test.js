@@ -5,7 +5,8 @@
  */
 
 import React from 'react';
-import { renderWithIntl } from '@utils/testUtils';
+import { fireEvent } from '@testing-library/dom';
+import { renderProvider, renderWithIntl, timeout } from '@utils/testUtils';
 import TrackComponent from '../index';
 
 describe('<TrackComponent />', () => {
@@ -42,5 +43,33 @@ describe('<TrackComponent />', () => {
   it('should contain 1 TrackComponent component', () => {
     const { getAllByTestId } = renderWithIntl(<TrackComponent />);
     expect(getAllByTestId('track-component').length).toBe(1);
+  });
+
+  it('should render the PLAY text on PlayTrackBtn button', () => {
+    const { queryByRole } = renderProvider(
+      <TrackComponent trackUrl={trackUrl} handlePauseTrackWrapper={handlePauseTrackWrapperSpy} />
+    );
+    const button = queryByRole('button', {
+      name: /play/i
+    });
+
+    expect(button).toHaveTextContent(/play/i);
+  });
+
+  it('should render the PAUSE text on PlayTrackBtn button when the play is clicked', async () => {
+    let handlePlayPauseSpy = jest.fn();
+    const { queryByRole, debug } = renderProvider(
+      <TrackComponent trackUrl={trackUrl} handlePauseTrackWrapper={handlePauseTrackWrapperSpy} />
+    );
+
+    const button = queryByRole('button', {
+      name: /play/i
+    });
+
+    expect(button).toHaveTextContent(/play/i);
+    fireEvent.click(button, { onclick: handlePlayPauseSpy() });
+    await timeout(1000);
+    debug();
+    expect(button).toHaveTextContent(/pause/i);
   });
 });

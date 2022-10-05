@@ -67,19 +67,19 @@ const ButtonLabel = styled.span`
 `;
 
 export function TrackComponent({ collectionName, artistName, imageUrl, trackName, trackUrl, handlePauseTrackWrapper }) {
-  const [playTrack, setPlayTrack] = useState(false);
+  const [isTrackPlaying, setIsTrackPlaying] = useState(false);
   const trackRef = useRef(null);
 
   const handlePlayPauseBtn = e => {
     e.preventDefault();
-    setPlayTrack(!playTrack);
 
     if (trackRef.current?.paused) {
       trackRef.current.play();
     } else {
       trackRef.current.pause();
     }
-    handlePauseTrackWrapper(trackRef);
+    setIsTrackPlaying(!isTrackPlaying);
+    handlePauseTrackWrapper && handlePauseTrackWrapper(trackRef);
   };
 
   return (

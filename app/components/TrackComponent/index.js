@@ -7,7 +7,7 @@
 import React, { memo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Card, Image, Typography, Button } from 'antd';
+import { Card, Image, Typography } from 'antd';
 import { isEmpty } from 'lodash';
 import { colors, fonts } from '@app/themes/index';
 import If from '@components/If';
@@ -41,7 +41,7 @@ const StyledSpan = styled.span`
   }
 `;
 
-const PlayTrackBtn = styled(Button)`
+const PlayTrackBtn = styled.button`
   && {
     background-color: ${colors.background};
     border: none;
@@ -50,6 +50,7 @@ const PlayTrackBtn = styled(Button)`
     align-items: center;
     border-radius: 0.5rem;
     width: 100%;
+    cursor: pointer;
 
     &:hover {
       background-color: ${colors.primaryLight};
@@ -68,18 +69,20 @@ const ButtonLabel = styled.span`
 
 export function TrackComponent({ collectionName, artistName, imageUrl, trackName, trackUrl, handlePauseTrackWrapper }) {
   const [isTrackPlaying, setIsTrackPlaying] = useState(false);
-  const trackRef = useRef(null);
+  const audioRef = useRef(null);
 
   const handlePlayPauseBtn = e => {
     e.preventDefault();
 
-    if (trackRef.current?.paused) {
-      trackRef.current.play();
+    const isTrackPaused = audioRef.current?.paused;
+
+    if (isTrackPaused) {
+      audioRef.current.play();
     } else {
-      trackRef.current.pause();
+      audioRef.current.pause();
     }
     setIsTrackPlaying(!isTrackPlaying);
-    handlePauseTrackWrapper && handlePauseTrackWrapper(trackRef);
+    handlePauseTrackWrapper && handlePauseTrackWrapper(audioRef);
   };
 
   return (
@@ -106,13 +109,13 @@ export function TrackComponent({ collectionName, artistName, imageUrl, trackName
 
       <PlayTrackBtn onClick={e => handlePlayPauseBtn(e)}>
         <If
-          condition={!trackRef.current?.paused && trackRef.current?.src}
+          condition={!audioRef.current?.paused && audioRef.current?.src}
           otherwise={<ButtonLabel> Play </ButtonLabel>}
         >
           <ButtonLabel> Pause </ButtonLabel>
         </If>
       </PlayTrackBtn>
-      <audio src={trackUrl} ref={trackRef} />
+      <audio src={trackUrl} ref={audioRef} />
     </TrackCardContainer>
   );
 }

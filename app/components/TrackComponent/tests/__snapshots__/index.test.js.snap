@@ -73,8 +73,7 @@ exports[`<TrackComponent /> should render and match the snapshot 1`] = `
           </div>
         </div>
         <button
-          class="ant-btn TrackComponent__PlayTrackBtn-sc-1y7fh5t-4 hRnINj"
-          type="button"
+          class="TrackComponent__PlayTrackBtn-sc-1y7fh5t-4 jJbCwT"
         >
           <span
             class="TrackComponent__ButtonLabel-sc-1y7fh5t-5 bETzpv"

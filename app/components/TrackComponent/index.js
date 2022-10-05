@@ -82,7 +82,7 @@ export function TrackComponent({ collectionName, artistName, imageUrl, trackName
       audioRef.current.pause();
     }
     setIsTrackPlaying(!isTrackPlaying);
-    handlePauseTrackWrapper && handlePauseTrackWrapper(audioRef);
+    handlePauseTrackWrapper(audioRef);
   };
 
   return (

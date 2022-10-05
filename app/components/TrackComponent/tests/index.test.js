@@ -49,27 +49,22 @@ describe('<TrackComponent />', () => {
     const { queryByRole } = renderProvider(
       <TrackComponent trackUrl={trackUrl} handlePauseTrackWrapper={handlePauseTrackWrapperSpy} />
     );
-    const button = queryByRole('button', {
-      name: /play/i
-    });
+    const button = queryByRole('button');
 
     expect(button).toHaveTextContent(/play/i);
   });
 
   it('should render the PAUSE text on PlayTrackBtn button when the play is clicked', async () => {
     let handlePlayPauseSpy = jest.fn();
-    const { queryByRole, debug } = renderProvider(
+    const { queryByRole } = renderProvider(
       <TrackComponent trackUrl={trackUrl} handlePauseTrackWrapper={handlePauseTrackWrapperSpy} />
     );
 
-    const button = queryByRole('button', {
-      name: /play/i
-    });
+    const button = queryByRole('button');
 
     expect(button).toHaveTextContent(/play/i);
     fireEvent.click(button, { onclick: handlePlayPauseSpy() });
     await timeout(1000);
-    debug();
     expect(button).toHaveTextContent(/pause/i);
   });
 });

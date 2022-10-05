@@ -4,7 +4,7 @@
  *
  */
 
-import React, { memo } from 'react';
+import React, { memo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Card, Image, Typography, Button } from 'antd';
@@ -45,7 +45,9 @@ const PlayTrackBtn = styled(Button)`
   && {
     background-color: ${colors.background};
     border: none;
-    color: ${colors.text};
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 0.5rem;
     width: 100%;
 
@@ -56,7 +58,30 @@ const PlayTrackBtn = styled(Button)`
   }
 `;
 
-export function TrackComponent({ collectionName, artistName, imageUrl, trackName }) {
+const ButtonLabel = styled.span`
+  && {
+    color: ${colors.text};
+    ${fonts.weights.bold}
+    ${fonts.size.big}
+  }
+`;
+
+export function TrackComponent({ collectionName, artistName, imageUrl, trackName, trackUrl, handlePauseTrackWrapper }) {
+  const [playTrack, setPlayTrack] = useState(false);
+  const trackRef = useRef(null);
+
+  const handlePlayPauseBtn = e => {
+    e.preventDefault();
+    setPlayTrack(!playTrack);
+
+    if (trackRef.current?.paused) {
+      trackRef.current.play();
+    } else {
+      trackRef.current.pause();
+    }
+    handlePauseTrackWrapper(trackRef);
+  };
+
   return (
     <TrackCardContainer data-testid="track-component">
       <If condition={!isEmpty(imageUrl)} otherwise={<Image>No image available</Image>}>
@@ -79,7 +104,15 @@ export function TrackComponent({ collectionName, artistName, imageUrl, trackName
         </If>
       </StyledDescription>
 
-      <PlayTrackBtn>Play</PlayTrackBtn>
+      <PlayTrackBtn onClick={e => handlePlayPauseBtn(e)}>
+        <If
+          condition={!trackRef.current?.paused && trackRef.current?.src}
+          otherwise={<ButtonLabel> Play </ButtonLabel>}
+        >
+          <ButtonLabel> Pause </ButtonLabel>
+        </If>
+      </PlayTrackBtn>
+      <audio src={trackUrl} ref={trackRef} />
     </TrackCardContainer>
   );
 }
@@ -93,5 +126,7 @@ TrackComponent.propTypes = {
   trackName: PropTypes.string,
   maxWidth: PropTypes.number,
   songId: PropTypes.number,
-  imageUrl: PropTypes.string
+  imageUrl: PropTypes.string,
+  trackUrl: PropTypes.string,
+  handlePauseTrackWrapper: PropTypes.func
 };

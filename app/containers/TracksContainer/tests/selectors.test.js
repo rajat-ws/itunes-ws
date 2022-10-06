@@ -1,73 +1,74 @@
-/*
- ** TracksContainer selector tests
- */
-
 import {
-  selectTracksData,
   selectTracksContainer,
-  selectTracksContainerDomain,
-  selectTracksError,
   selectTrackName,
-  selectTracksLoading
+  selectTrackDetails,
+  selectTrackDetailsError,
+  selectTrackId,
+  selectTracksData,
+  selectTracksError
 } from '../selectors';
 
 describe('TracksContainer selector tests', () => {
   let mockedState;
   let trackName;
-  let tracksError;
   let tracksData;
-  let tracksLoading;
-  let initialState = {
-    tracksData: {},
-    tracksError: null,
-    trackName: null,
-    tracksLoading: false
-  };
-  let mockedStateWithoutInitialState = {};
+  let trackDetails;
+  let trackId;
+  let tracksError;
+  let trackDetailsError;
 
   beforeEach(() => {
     (trackName = 'Naina'), (tracksData = { songName: 'Naina', songArtist: 'Arijit Singh' });
     tracksError = 'Some error occured whille finding requested information';
+    trackId = '3434533';
+    trackDetails = [{ trackId }];
+    tracksError = 'something went wrong';
+    trackDetailsError = 'error while fetching the track details';
+
     mockedState = {
       tracksContainer: {
         trackName,
-        tracksError,
         tracksData,
-        tracksLoading
+        trackDetails,
+        tracksError,
+        trackDetailsError,
+        trackId
       }
     };
   });
 
-  it('should return initial state', () => {
-    expect(selectTracksContainerDomain(mockedStateWithoutInitialState)).toEqual(initialState);
-  });
-
-  it('should return state', () => {
-    expect(selectTracksContainerDomain(mockedState)).toEqual(mockedState.tracksContainer);
-  });
-
-  it('should select the user state', () => {
-    const tracksContainerSelector = selectTracksContainer();
-    expect(tracksContainerSelector(mockedState)).toEqual(mockedState.tracksContainer);
-  });
-
-  it('should select the tracks name', () => {
+  it('should select the trackName', () => {
     const trackNameSelector = selectTrackName();
     expect(trackNameSelector(mockedState)).toEqual(trackName);
   });
 
-  it('should select the tracks data', () => {
-    const tracksDataSelector = selectTracksData();
-    expect(tracksDataSelector(mockedState)).toEqual(tracksData);
+  it('should select the tracksContainer state', () => {
+    const tracksContainerSelector = selectTracksContainer();
+    expect(tracksContainerSelector(mockedState)).toEqual(mockedState.tracksContainer);
   });
 
-  it('should select the tracks error', () => {
-    const tracksErrorSelector = selectTracksError();
-    expect(tracksErrorSelector(mockedState)).toEqual(tracksError);
+  it('should select tracksData', () => {
+    const searchTrackDataSelector = selectTracksData();
+    expect(searchTrackDataSelector(mockedState)).toEqual(tracksData);
   });
 
-  it('should select the tracksLoading state', () => {
-    const tracksLoadingSelector = selectTracksLoading();
-    expect(tracksLoadingSelector(mockedState)).toEqual(tracksLoading);
+  it('should select the trackDetails', () => {
+    const trackDetailsSelector = selectTrackDetails();
+    expect(trackDetailsSelector(mockedState)).toEqual(trackDetails);
+  });
+
+  it('should select the trackError', () => {
+    const trackErrorSelector = selectTracksError();
+    expect(trackErrorSelector(mockedState)).toEqual(tracksError);
+  });
+
+  it('should select the trackDetailsError', () => {
+    const trackErrorSelector = selectTrackDetailsError();
+    expect(trackErrorSelector(mockedState)).toEqual(trackDetailsError);
+  });
+
+  it('should select the trackError', () => {
+    const trackErrorSelector = selectTrackId();
+    expect(trackErrorSelector(mockedState)).toEqual(trackId);
   });
 });

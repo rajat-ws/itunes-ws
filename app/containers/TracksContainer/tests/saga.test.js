@@ -6,7 +6,7 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { getSongs } from '@services/itunesApi';
 import { apiResponseGenerator } from '@utils/testUtils';
-import tracksContainerSaga, { requestGetTracks } from '../saga';
+import tracksContainerSaga, { requestGetTrackDetails, requestGetTracks } from '../saga';
 import { trackContainerTypes } from '../reducer';
 
 describe('TracksContainer saga tests', () => {
@@ -45,6 +45,12 @@ describe('TracksContainer saga tests', () => {
         type: trackContainerTypes.SUCCESS_GET_TRACKS,
         data: sucessSongsResponse
       })
+    );
+  });
+
+  it('should start task to watch for REQUEST_GET_TRACK_DETAILS', () => {
+    expect(generator.next().value).toEqual(
+      takeLatest(trackContainerTypes.REQUEST_GET_TRACK_DETAILS, requestGetTrackDetails)
     );
   });
 });

@@ -14,7 +14,7 @@ import If from '@app/components/If';
 import TrackComponent from '@app/components/TrackComponent/index';
 import tracksContainerSaga from './saga';
 import { tracksContainerCreators } from './reducer';
-import { selectTrackName, selectTracksData, selectTracksLoading } from './selectors';
+import { selectTrackDetails, selectTrackName, selectTracksData, selectTracksLoading } from './selectors';
 
 const { Search } = Input;
 
@@ -40,7 +40,7 @@ const Container = styled.div`
     gap: 2rem;
     width: 100%;
     margin: 0 auto;
-    padding: ${props => props.padding}rem;
+    padding: 1rem 0;
   }
 `;
 
@@ -102,6 +102,7 @@ export function TracksContainer({
               ParentComponent={TrackGrid}
               renderItem={(item, index) => (
                 <TrackComponent
+                  isShowDetailsBtn
                   handlePauseTrackWrapper={handlePauseTrackWrapper}
                   trackUrl={item.previewUrl}
                   key={index}
@@ -141,6 +142,7 @@ TracksContainer.propTypes = {
   padding: PropTypes.number,
   trackName: PropTypes.string,
   dispatchRequestTracksData: PropTypes.func,
+  dispatchRequestTrackDetails: PropTypes.func,
   dispatchClearTracksData: PropTypes.func,
   intl: PropTypes.object,
   tracksError: PropTypes.object,
@@ -158,7 +160,8 @@ TracksContainer.defaultProps = {
 const mapStateToProps = createStructuredSelector({
   tracksData: selectTracksData(),
   trackName: selectTrackName(),
-  tracksLoading: selectTracksLoading()
+  tracksLoading: selectTracksLoading(),
+  trackDetails: selectTrackDetails()
 });
 
 function mapDispatchToProps(dispatch) {

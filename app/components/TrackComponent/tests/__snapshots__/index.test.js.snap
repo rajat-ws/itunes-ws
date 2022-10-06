@@ -72,16 +72,21 @@ exports[`<TrackComponent /> should render and match the snapshot 1`] = `
             No track name available
           </div>
         </div>
-        <button
-          class="TrackComponent__PlayTrackBtn-sc-1y7fh5t-4 jJbCwT"
+        <div
+          class="TrackComponent__ButtonWrapper-sc-1y7fh5t-6 hVNmQJ"
         >
-          <span
-            class="TrackComponent__ButtonLabel-sc-1y7fh5t-5 bETzpv"
+          <button
+            class="TrackComponent__PlayTrackBtn-sc-1y7fh5t-4 dlRTDI"
           >
-             Play 
-          </span>
-        </button>
+            <span
+              class="TrackComponent__ButtonLabel-sc-1y7fh5t-7 doqWYl"
+            >
+               Play 
+            </span>
+          </button>
+        </div>
         <audio
+          data-testid="trackAudio"
           src="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/d4/06/39/d4063988-a5c8-974e-059b-5233110a322c/mzaf_2253161526891008132.plus.aac.p.m4a"
         />
       </div>

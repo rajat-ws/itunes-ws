@@ -50,4 +50,15 @@ describe('TracksContainer reducer tests', () => {
       })
     ).toEqual(initialState);
   });
+
+  it('should ensure that whilst FAILURE_GET_TRACK_DETAILS has been dispatched when the track details data can not be found', () => {
+    const error = 'something_went_wrong';
+    const expectedResult = { ...state, trackDetailsError: error };
+    expect(
+      tracksContainerReducer(state, {
+        type: trackContainerTypes.FAILURE_GET_TRACK_DETAILS,
+        error
+      })
+    ).toEqual(expectedResult);
+  });
 });

@@ -4,7 +4,7 @@ exports[`<ProtectedRoute /> should render and match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="TracksContainer__Container-jv1ui9-2 exSGCG"
+      class="TracksContainer__Container-jv1ui9-2 buqqOa"
       data-testid="tracks-container"
     >
       <div

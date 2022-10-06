@@ -5,6 +5,7 @@
  */
 
 import React, { memo, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Card, Image, Typography } from 'antd';
@@ -59,6 +60,31 @@ const PlayTrackBtn = styled.button`
   }
 `;
 
+const ShowDetailsBtn = styled.button`
+  && {
+    background-color: ${colors.primaryDark};
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+    width: 100%;
+    cursor: pointer;
+
+    &:hover {
+      background-color: ${colors.primaryLight};
+      color: ${colors.text};
+    }
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  && {
+    display: flex;
+    gap: 1rem;
+  }
+`;
+
 const ButtonLabel = styled.span`
   && {
     color: ${colors.text};
@@ -67,9 +93,19 @@ const ButtonLabel = styled.span`
   }
 `;
 
-export function TrackComponent({ collectionName, artistName, imageUrl, trackName, trackUrl, handlePauseTrackWrapper }) {
+export function TrackComponent({
+  collectionName,
+  isShowDetailsBtn,
+  artistName,
+  imageUrl,
+  trackName,
+  trackId,
+  trackUrl,
+  handlePauseTrackWrapper
+}) {
   const [isTrackPlaying, setIsTrackPlaying] = useState(false);
   const audioRef = useRef(null);
+  const history = useHistory();
 
   const handlePlayPauseBtn = e => {
     e.preventDefault();
@@ -83,6 +119,10 @@ export function TrackComponent({ collectionName, artistName, imageUrl, trackName
     }
     setIsTrackPlaying(!isTrackPlaying);
     handlePauseTrackWrapper(audioRef);
+  };
+
+  const handleTrackDetailsRoute = trackId => {
+    history.push(`/tracks/${trackId}`);
   };
 
   return (
@@ -107,15 +147,23 @@ export function TrackComponent({ collectionName, artistName, imageUrl, trackName
         </If>
       </StyledDescription>
 
-      <PlayTrackBtn onClick={e => handlePlayPauseBtn(e)}>
-        <If
-          condition={!audioRef.current?.paused && audioRef.current?.src}
-          otherwise={<ButtonLabel> Play </ButtonLabel>}
-        >
-          <ButtonLabel> Pause </ButtonLabel>
+      <ButtonWrapper>
+        <If condition={isShowDetailsBtn}>
+          <ShowDetailsBtn onClick={() => handleTrackDetailsRoute(trackId)}>
+            <ButtonLabel> Show Details </ButtonLabel>
+          </ShowDetailsBtn>
         </If>
-      </PlayTrackBtn>
-      <audio src={trackUrl} ref={audioRef} />
+
+        <PlayTrackBtn onClick={handlePlayPauseBtn}>
+          <If
+            condition={!audioRef.current?.paused && audioRef.current?.src}
+            otherwise={<ButtonLabel> Play </ButtonLabel>}
+          >
+            <ButtonLabel> Pause </ButtonLabel>
+          </If>
+        </PlayTrackBtn>
+      </ButtonWrapper>
+      <audio src={trackUrl} ref={audioRef} data-testid="trackAudio" />
     </TrackCardContainer>
   );
 }
@@ -124,6 +172,7 @@ export default memo(TrackComponent);
 
 TrackComponent.propTypes = {
   artistId: PropTypes.number,
+  trackId: PropTypes.number,
   artistName: PropTypes.string,
   collectionName: PropTypes.string,
   trackName: PropTypes.string,
@@ -131,5 +180,6 @@ TrackComponent.propTypes = {
   songId: PropTypes.number,
   imageUrl: PropTypes.string,
   trackUrl: PropTypes.string,
+  isShowDetailsBtn: PropTypes.bool,
   handlePauseTrackWrapper: PropTypes.func
 };

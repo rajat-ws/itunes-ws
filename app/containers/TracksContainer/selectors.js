@@ -37,3 +37,21 @@ export const selectTracksData = () =>
     selectTracksContainerDomain,
     substate => get(substate, 'tracksData')
   );
+
+export const selectTrackId = () =>
+  createSelector(
+    selectTracksContainerDomain,
+    substate => get(substate, 'trackId')
+  );
+
+export const selectTrackDetails = () =>
+  createSelector(
+    selectTracksContainerDomain,
+    substate => get(substate, 'trackDetails')
+  );
+
+export const selectTrackDetailsError = () =>
+  createSelector(
+    selectTracksContainerDomain,
+    substate => get(substate, 'trackDetailsError')
+  );

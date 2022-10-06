@@ -22,10 +22,10 @@ describe('TracksContainer Tests', () => {
 
   // dispatch track names
   it('should call dispatchRequestTracksData on change', async () => {
-    const { getByTestId } = renderWithIntl(
+    const { queryByTestId } = renderWithIntl(
       <TracksContainer dispatchRequestTracksData={mockdispatchRequestTracksData} />
     );
-    fireEvent.change(getByTestId('search-bar'), {
+    fireEvent.change(queryByTestId('search-bar'), {
       target: { value: 'Arijit' }
     });
     await timeout(500);
@@ -48,24 +48,24 @@ describe('TracksContainer Tests', () => {
       ]
     };
     await timeout(500);
-    const { getByTestId } = renderProvider(<TracksContainer tracksData={data} />);
-    expect(getByTestId('for')).toBeInTheDocument();
+    const { queryByTestId } = renderProvider(<TracksContainer tracksData={data} />);
+    expect(queryByTestId('for')).toBeInTheDocument();
   });
 
   // testing for dispatchClearTracksData
   it('should trigger the disptachTrackData while search input is being emptied', async () => {
     let searchTrackNamesSpy = jest.fn();
     let clearTracksDataSpy = jest.fn();
-    const { getByTestId } = renderWithIntl(
+    const { queryByTestId } = renderWithIntl(
       <TracksContainer dispatchRequestTracksData={searchTrackNamesSpy} dispatchClearTracksData={clearTracksDataSpy} />
     );
 
-    fireEvent.change(getByTestId('search-bar'), {
+    fireEvent.change(queryByTestId('search-bar'), {
       target: { value: 'a' }
     });
     await timeout(500);
     expect(searchTrackNamesSpy).toBeCalled();
-    fireEvent.change(getByTestId('search-bar'), {
+    fireEvent.change(queryByTestId('search-bar'), {
       target: { value: '' }
     });
     await timeout(500);

@@ -73,13 +73,17 @@ exports[`<TrackComponent /> should render and match the snapshot 1`] = `
           </div>
         </div>
         <button
-          class="ant-btn TrackComponent__PlayTrackBtn-sc-1y7fh5t-4 gQthud"
-          type="button"
+          class="TrackComponent__PlayTrackBtn-sc-1y7fh5t-4 jJbCwT"
         >
-          <span>
-            Play
+          <span
+            class="TrackComponent__ButtonLabel-sc-1y7fh5t-5 bETzpv"
+          >
+             Play 
           </span>
         </button>
+        <audio
+          src="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/d4/06/39/d4063988-a5c8-974e-059b-5233110a322c/mzaf_2253161526891008132.plus.aac.p.m4a"
+        />
       </div>
     </div>
   </div>

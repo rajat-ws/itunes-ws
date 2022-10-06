@@ -4,10 +4,10 @@
  *
  */
 
-import React, { memo } from 'react';
+import React, { memo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Card, Image, Typography, Button } from 'antd';
+import { Card, Image, Typography } from 'antd';
 import { isEmpty } from 'lodash';
 import { colors, fonts } from '@app/themes/index';
 import If from '@components/If';
@@ -41,13 +41,16 @@ const StyledSpan = styled.span`
   }
 `;
 
-const PlayTrackBtn = styled(Button)`
+const PlayTrackBtn = styled.button`
   && {
     background-color: ${colors.background};
     border: none;
-    color: ${colors.text};
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 0.5rem;
     width: 100%;
+    cursor: pointer;
 
     &:hover {
       background-color: ${colors.primaryLight};
@@ -56,7 +59,32 @@ const PlayTrackBtn = styled(Button)`
   }
 `;
 
-export function TrackComponent({ collectionName, artistName, imageUrl, trackName }) {
+const ButtonLabel = styled.span`
+  && {
+    color: ${colors.text};
+    ${fonts.weights.bold}
+    ${fonts.size.big}
+  }
+`;
+
+export function TrackComponent({ collectionName, artistName, imageUrl, trackName, trackUrl, handlePauseTrackWrapper }) {
+  const [isTrackPlaying, setIsTrackPlaying] = useState(false);
+  const audioRef = useRef(null);
+
+  const handlePlayPauseBtn = e => {
+    e.preventDefault();
+
+    const isTrackPaused = audioRef.current?.paused;
+
+    if (isTrackPaused) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
+    setIsTrackPlaying(!isTrackPlaying);
+    handlePauseTrackWrapper(audioRef);
+  };
+
   return (
     <TrackCardContainer data-testid="track-component">
       <If condition={!isEmpty(imageUrl)} otherwise={<Image>No image available</Image>}>
@@ -79,7 +107,15 @@ export function TrackComponent({ collectionName, artistName, imageUrl, trackName
         </If>
       </StyledDescription>
 
-      <PlayTrackBtn>Play</PlayTrackBtn>
+      <PlayTrackBtn onClick={e => handlePlayPauseBtn(e)}>
+        <If
+          condition={!audioRef.current?.paused && audioRef.current?.src}
+          otherwise={<ButtonLabel> Play </ButtonLabel>}
+        >
+          <ButtonLabel> Pause </ButtonLabel>
+        </If>
+      </PlayTrackBtn>
+      <audio src={trackUrl} ref={audioRef} />
     </TrackCardContainer>
   );
 }
@@ -93,5 +129,7 @@ TrackComponent.propTypes = {
   trackName: PropTypes.string,
   maxWidth: PropTypes.number,
   songId: PropTypes.number,
-  imageUrl: PropTypes.string
+  imageUrl: PropTypes.string,
+  trackUrl: PropTypes.string,
+  handlePauseTrackWrapper: PropTypes.func
 };

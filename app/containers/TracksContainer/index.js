@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Input, Card, Skeleton } from 'antd';
@@ -62,6 +62,8 @@ export function TracksContainer({
   dispatchClearTracksData,
   tracksLoading
 }) {
+  const [currentPlayingTrack, setCurrentPlayingTrack] = useState(null);
+
   useEffect(() => {
     if (trackName && !tracksData?.results?.length) {
       dispatchRequestTracksData(trackName);
@@ -73,6 +75,16 @@ export function TracksContainer({
       dispatchRequestTracksData(trackname);
     } else {
       dispatchClearTracksData();
+    }
+  };
+
+  const handlePauseTrackWrapper = ref => {
+    //track the current playing track
+    setCurrentPlayingTrack(ref);
+    const trackPaused = currentPlayingTrack?.current?.paused;
+    // check if ref currentSrc matches with current playing track and if not, pause the current track
+    if (!trackPaused && ref.current.src !== currentPlayingTrack?.current?.src) {
+      currentPlayingTrack?.current?.pause();
     }
   };
 
@@ -88,7 +100,15 @@ export function TracksContainer({
             <For
               of={loadedTrackSongs}
               ParentComponent={TrackGrid}
-              renderItem={(item, index) => <TrackComponent key={index} imageUrl={item.artworkUrl100} {...item} />}
+              renderItem={(item, index) => (
+                <TrackComponent
+                  handlePauseTrackWrapper={handlePauseTrackWrapper}
+                  trackUrl={item.previewUrl}
+                  key={index}
+                  imageUrl={item.artworkUrl100}
+                  {...item}
+                />
+              )}
             />
           </Skeleton>
         </TitleCard>

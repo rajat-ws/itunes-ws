@@ -12,6 +12,7 @@ export const initialState = {
   tracksData: {},
   tracksError: null,
   tracksLoading: false,
+  singleTrackLoading: false,
   trackId: null,
   trackDetails: null,
   trackDetailsError: null
@@ -60,14 +61,17 @@ export const tracksContainerReducer = (state = initialState, action) =>
         draft.trackId = action.trackId;
         draft.trackDetailsError = null;
         draft.trackDetails = null;
+        draft.singleTrackLoading = true;
         break;
 
       case trackContainerTypes.SUCCESS_GET_TRACK_DETAILS:
         draft.trackDetails = action.data;
         draft.trackDetailsError = null;
+        draft.singleTrackLoading = false;
         break;
 
       case trackContainerTypes.FAILURE_GET_TRACK_DETAILS:
+        draft.singleTrackLoading = false;
         draft.trackDetailsError = action.error;
         break;
     }

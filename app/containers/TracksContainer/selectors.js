@@ -32,6 +32,12 @@ export const selectTracksLoading = () =>
     substate => get(substate, 'tracksLoading')
   );
 
+export const selectSingleTrackLoading = () =>
+  createSelector(
+    selectTracksContainerDomain,
+    substate => get(substate, 'singleTrackLoading')
+  );
+
 export const selectTracksData = () =>
   createSelector(
     selectTracksContainerDomain,

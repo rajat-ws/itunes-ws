@@ -12,9 +12,10 @@ import { compose } from 'redux';
 import { injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { useParams } from 'react-router-dom';
-import { selectTrackDetails } from '../selectors';
+import { selectSingleTrackLoading, selectTrackDetails } from '../selectors';
 import { tracksContainerCreators } from '../reducer';
 import { TrackComponent } from '@app/components/TrackComponent/index';
+import If from '@components/If';
 
 const Wrapper = styled.div`
   display: flex;
@@ -27,7 +28,7 @@ const TrackDetailsWrapper = styled.div`
   padding: 2rem;
 `;
 
-export function TrackDetailsContainer({ dispatchRequestTrackDetails, trackDetails }) {
+export function TrackDetailsContainer({ dispatchRequestTrackDetails, trackDetails, singleTrackLoading }) {
   const { trackId } = useParams();
 
   useEffect(() => {
@@ -36,26 +37,18 @@ export function TrackDetailsContainer({ dispatchRequestTrackDetails, trackDetail
 
   return (
     <Wrapper>
-      <TrackDetailsWrapper>
-        <TrackComponent
-          collectionName={trackDetails?.collectionName}
-          trackName={trackDetails?.trackName}
-          imageUrl={trackDetails?.artworkUrl100}
-          trackUrl={trackDetails?.previewUrl}
-          artistName={trackDetails?.artistName}
-          country={trackDetails?.country}
-          primaryGenreName={trackDetails?.primaryGenreName}
-          kind={trackDetails?.kind}
-          wrapperType={trackDetails?.wrapperType}
-          trackTimeMillis={trackDetails?.trackTimeMillis}
-        />
-      </TrackDetailsWrapper>
+      <If condition={!singleTrackLoading}>
+        <TrackDetailsWrapper>
+          <TrackComponent singleTrackData={trackDetails} isShowDetails={true} />
+        </TrackDetailsWrapper>
+      </If>
     </Wrapper>
   );
 }
 
 TrackDetailsContainer.propTypes = {
   dispatchRequestTrackDetails: PropTypes.func,
+  singleTrackLoading: PropTypes.bool,
   trackDetails: PropTypes.shape({
     artistName: PropTypes.string,
     wrapperType: PropTypes.string,
@@ -73,7 +66,8 @@ TrackDetailsContainer.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  trackDetails: selectTrackDetails()
+  trackDetails: selectTrackDetails(),
+  singleTrackLoading: selectSingleTrackLoading()
 });
 
 function mapDispatchToProps(dispatch) {

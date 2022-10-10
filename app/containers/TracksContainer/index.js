@@ -102,15 +102,11 @@ export function TracksContainer({
               ParentComponent={TrackGrid}
               renderItem={(item, index) => (
                 <TrackComponent
-                  isShowDetailsBtn
+                  singleTrackData={item}
+                  isShowDetailsButton
                   handlePauseTrackWrapper={handlePauseTrackWrapper}
-                  trackUrl={item.previewUrl}
-                  trackName={item.trackName}
-                  collectionName={item.collectionName}
-                  artistName={item.artistName}
-                  trackId={item.trackId}
+                  isShowDetails={false}
                   key={index}
-                  imageUrl={item.artworkUrl100}
                 />
               )}
             />
@@ -144,6 +140,7 @@ TracksContainer.propTypes = {
   maxWidth: PropTypes.number,
   padding: PropTypes.number,
   trackName: PropTypes.string,
+  singleTrackData: PropTypes.array,
   dispatchRequestTracksData: PropTypes.func,
   dispatchRequestTrackDetails: PropTypes.func,
   dispatchClearTracksData: PropTypes.func,

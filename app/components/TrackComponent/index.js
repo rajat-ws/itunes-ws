@@ -93,22 +93,21 @@ const ButtonLabel = styled.span`
   }
 `;
 
-export function TrackComponent({
-  trackUrl,
-  collectionName,
-  isShowDetailsBtn,
-  artistName,
-  imageUrl,
-  trackName,
-  trackId,
-  country,
-  primaryGenreName,
-  kind,
-  wrapperType,
-  trackTimeMillis,
-  handlePauseTrackWrapper
-}) {
+export function TrackComponent({ singleTrackData, isShowDetailsButton, isShowDetails, handlePauseTrackWrapper }) {
   const [isTrackPlaying, setIsTrackPlaying] = useState(false);
+  const {
+    artistName,
+    artworkUrl100: imageUrl,
+    previewUrl,
+    trackTimeMillis: trackDuration,
+    collectionName,
+    trackName,
+    trackId,
+    country,
+    primaryGenreName,
+    kind,
+    wrapperType
+  } = singleTrackData || {};
   const audioRef = useRef(null);
   const history = useHistory();
 
@@ -126,9 +125,7 @@ export function TrackComponent({
     handlePauseTrackWrapper(audioRef);
   };
 
-  const handleTrackDetailsRoute = trackId => {
-    history.push(`/tracks/${trackId}`);
-  };
+  const handleTrackDetailsRoute = trackId => history.push(`/tracks/${trackId}`);
 
   return (
     <TrackCardContainer data-testid="track-component">
@@ -154,38 +151,31 @@ export function TrackComponent({
             <StyledSpan> Track name: </StyledSpan> {trackName}
           </Paragraph>
         </If>
-
-        <If condition={!isEmpty(country)}>
+        <If condition={isShowDetails}>
           <Paragraph>
             <StyledSpan> Country: </StyledSpan> {country}
           </Paragraph>
-        </If>
-        <If condition={!isEmpty(kind)}>
           <Paragraph>
             <StyledSpan> Kind: </StyledSpan> {kind}
           </Paragraph>
-        </If>
-        <If condition={!isEmpty(primaryGenreName)}>
           <Paragraph>
             <StyledSpan> Genre: </StyledSpan> {primaryGenreName}
           </Paragraph>
-        </If>
-        <If condition={!isEmpty(wrapperType)}>
           <Paragraph>
             <StyledSpan> Wrapper Type: </StyledSpan> {wrapperType}
           </Paragraph>
-        </If>
 
-        {trackTimeMillis && (
-          <Paragraph>
-            <StyledSpan> Duration: </StyledSpan> {Math.floor(trackTimeMillis / 60000)}:
-            {Math.floor(trackTimeMillis / 1000) % 60}s
-          </Paragraph>
-        )}
+          {trackDuration && (
+            <Paragraph>
+              <StyledSpan> Duration: </StyledSpan> {Math.floor(trackDuration / 60000)}:
+              {Math.floor(trackDuration / 1000) % 60}s
+            </Paragraph>
+          )}
+        </If>
       </StyledDescription>
 
       <ButtonWrapper>
-        <If condition={isShowDetailsBtn}>
+        <If condition={isShowDetailsButton}>
           <ShowDetailsBtn onClick={() => handleTrackDetailsRoute(trackId)}>
             <ButtonLabel> Show Details </ButtonLabel>
           </ShowDetailsBtn>
@@ -200,7 +190,7 @@ export function TrackComponent({
           </If>
         </PlayTrackBtn>
       </ButtonWrapper>
-      <audio src={trackUrl} ref={audioRef} data-testid="trackAudio" />
+      <audio src={previewUrl} ref={audioRef} data-testid="trackAudio" />
     </TrackCardContainer>
   );
 }
@@ -208,20 +198,25 @@ export function TrackComponent({
 export default memo(TrackComponent);
 
 TrackComponent.propTypes = {
-  artistId: PropTypes.number,
-  trackTimeMillis: PropTypes.number,
-  trackId: PropTypes.number,
-  artistName: PropTypes.string,
-  collectionName: PropTypes.string,
-  trackName: PropTypes.string,
-  maxWidth: PropTypes.number,
-  songId: PropTypes.number,
-  imageUrl: PropTypes.string,
-  wrapperType: PropTypes.string,
-  primaryGenreName: PropTypes.string,
-  kind: PropTypes.string,
-  country: PropTypes.string,
-  trackUrl: PropTypes.string,
-  isShowDetailsBtn: PropTypes.bool,
+  singleTrackData: PropTypes.shape({
+    artistId: PropTypes.number,
+    trackTimeMillis: PropTypes.number,
+    trackId: PropTypes.number,
+    artistName: PropTypes.string,
+    artworkUrl100: PropTypes.string,
+    collectionName: PropTypes.string,
+    trackName: PropTypes.string,
+    maxWidth: PropTypes.number,
+    songId: PropTypes.number,
+    imageUrl: PropTypes.string,
+    wrapperType: PropTypes.string,
+    primaryGenreName: PropTypes.string,
+    kind: PropTypes.string,
+    country: PropTypes.string,
+    previewUrl: PropTypes.string
+  }),
+
+  isShowDetailsButton: PropTypes.bool,
+  isShowDetails: PropTypes.bool,
   handlePauseTrackWrapper: PropTypes.func
 };

@@ -81,6 +81,46 @@ exports[`<TrackDetailsContainer /> container tests should render and match the s
                  
                 track name
               </div>
+              <div
+                class="ant-typography"
+              >
+                <span
+                  class="TrackComponent__StyledSpan-sc-1y7fh5t-3 dZqfKg"
+                >
+                   Country: 
+                </span>
+                 
+              </div>
+              <div
+                class="ant-typography"
+              >
+                <span
+                  class="TrackComponent__StyledSpan-sc-1y7fh5t-3 dZqfKg"
+                >
+                   Kind: 
+                </span>
+                 
+              </div>
+              <div
+                class="ant-typography"
+              >
+                <span
+                  class="TrackComponent__StyledSpan-sc-1y7fh5t-3 dZqfKg"
+                >
+                   Genre: 
+                </span>
+                 
+              </div>
+              <div
+                class="ant-typography"
+              >
+                <span
+                  class="TrackComponent__StyledSpan-sc-1y7fh5t-3 dZqfKg"
+                >
+                   Wrapper Type: 
+                </span>
+                 
+              </div>
             </div>
             <div
               class="TrackComponent__ButtonWrapper-sc-1y7fh5t-6 hVNmQJ"

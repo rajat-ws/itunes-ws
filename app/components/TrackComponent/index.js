@@ -94,13 +94,18 @@ const ButtonLabel = styled.span`
 `;
 
 export function TrackComponent({
+  trackUrl,
   collectionName,
   isShowDetailsBtn,
   artistName,
   imageUrl,
   trackName,
   trackId,
-  trackUrl,
+  country,
+  primaryGenreName,
+  kind,
+  wrapperType,
+  trackTimeMillis,
   handlePauseTrackWrapper
 }) {
   const [isTrackPlaying, setIsTrackPlaying] = useState(false);
@@ -133,11 +138,15 @@ export function TrackComponent({
 
       <StyledDescription>
         <If condition={!isEmpty(artistName)} otherwise={<StyledTitle>No artist name available</StyledTitle>}>
-          <StyledTitle italic={true}> {artistName} </StyledTitle>
+          <StyledTitle>
+            <StyledSpan> Artist name: </StyledSpan> {artistName}
+          </StyledTitle>
         </If>
 
         <If condition={!isEmpty(collectionName)} otherwise={<Paragraph>No collection name available</Paragraph>}>
-          <Paragraph> {collectionName} </Paragraph>
+          <Paragraph>
+            <StyledSpan> Collection name: </StyledSpan> {collectionName}
+          </Paragraph>
         </If>
 
         <If condition={!isEmpty(trackName)} otherwise={<Paragraph>No track name available</Paragraph>}>
@@ -145,6 +154,34 @@ export function TrackComponent({
             <StyledSpan> Track name: </StyledSpan> {trackName}
           </Paragraph>
         </If>
+
+        <If condition={!isEmpty(country)}>
+          <Paragraph>
+            <StyledSpan> Country: </StyledSpan> {country}
+          </Paragraph>
+        </If>
+        <If condition={!isEmpty(kind)}>
+          <Paragraph>
+            <StyledSpan> Kind: </StyledSpan> {kind}
+          </Paragraph>
+        </If>
+        <If condition={!isEmpty(primaryGenreName)}>
+          <Paragraph>
+            <StyledSpan> Genre: </StyledSpan> {primaryGenreName}
+          </Paragraph>
+        </If>
+        <If condition={!isEmpty(wrapperType)}>
+          <Paragraph>
+            <StyledSpan> Wrapper Type: </StyledSpan> {wrapperType}
+          </Paragraph>
+        </If>
+
+        {trackTimeMillis && (
+          <Paragraph>
+            <StyledSpan> Duration: </StyledSpan> {Math.floor(trackTimeMillis / 60000)}:
+            {Math.floor(trackTimeMillis / 1000) % 60}s
+          </Paragraph>
+        )}
       </StyledDescription>
 
       <ButtonWrapper>
@@ -172,6 +209,7 @@ export default memo(TrackComponent);
 
 TrackComponent.propTypes = {
   artistId: PropTypes.number,
+  trackTimeMillis: PropTypes.number,
   trackId: PropTypes.number,
   artistName: PropTypes.string,
   collectionName: PropTypes.string,
@@ -179,6 +217,10 @@ TrackComponent.propTypes = {
   maxWidth: PropTypes.number,
   songId: PropTypes.number,
   imageUrl: PropTypes.string,
+  wrapperType: PropTypes.string,
+  primaryGenreName: PropTypes.string,
+  kind: PropTypes.string,
+  country: PropTypes.string,
   trackUrl: PropTypes.string,
   isShowDetailsBtn: PropTypes.bool,
   handlePauseTrackWrapper: PropTypes.func

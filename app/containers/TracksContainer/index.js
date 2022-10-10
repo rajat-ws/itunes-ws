@@ -105,9 +105,12 @@ export function TracksContainer({
                   isShowDetailsBtn
                   handlePauseTrackWrapper={handlePauseTrackWrapper}
                   trackUrl={item.previewUrl}
+                  trackName={item.trackName}
+                  collectionName={item.collectionName}
+                  artistName={item.artistName}
+                  trackId={item.trackId}
                   key={index}
                   imageUrl={item.artworkUrl100}
-                  {...item}
                 />
               )}
             />

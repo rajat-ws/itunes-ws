@@ -53,18 +53,24 @@ exports[`<TrackComponent /> should render and match the snapshot 1`] = `
           <h1
             class="ant-typography TrackComponent__StyledTitle-sc-1y7fh5t-2 kLbayd"
           >
-            <i>
-               
-              Arijit
-               
-            </i>
+            <span
+              class="TrackComponent__StyledSpan-sc-1y7fh5t-3 dZqfKg"
+            >
+               Artist name: 
+            </span>
+             
+            Arijit
           </h1>
           <div
             class="ant-typography"
           >
+            <span
+              class="TrackComponent__StyledSpan-sc-1y7fh5t-3 dZqfKg"
+            >
+               Collection name: 
+            </span>
              
             Some collection
-             
           </div>
           <div
             class="ant-typography"

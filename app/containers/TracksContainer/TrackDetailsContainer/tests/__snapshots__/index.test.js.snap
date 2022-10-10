@@ -62,9 +62,13 @@ exports[`<TrackDetailsContainer /> container tests should render and match the s
               <div
                 class="ant-typography"
               >
+                <span
+                  class="TrackComponent__StyledSpan-sc-1y7fh5t-3 dZqfKg"
+                >
+                   Collection name: 
+                </span>
                  
                 collection name
-                 
               </div>
               <div
                 class="ant-typography"

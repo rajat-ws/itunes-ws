@@ -8,8 +8,8 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { injectIntl } from 'react-intl';
 import { compose } from 'redux';
+import { injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { useParams } from 'react-router-dom';
 import { selectTrackDetails } from '../selectors';
@@ -42,6 +42,12 @@ export function TrackDetailsContainer({ dispatchRequestTrackDetails, trackDetail
           trackName={trackDetails?.trackName}
           imageUrl={trackDetails?.artworkUrl100}
           trackUrl={trackDetails?.previewUrl}
+          artistName={trackDetails?.artistName}
+          country={trackDetails?.country}
+          primaryGenreName={trackDetails?.primaryGenreName}
+          kind={trackDetails?.kind}
+          wrapperType={trackDetails?.wrapperType}
+          trackTimeMillis={trackDetails?.trackTimeMillis}
         />
       </TrackDetailsWrapper>
     </Wrapper>
@@ -52,13 +58,17 @@ TrackDetailsContainer.propTypes = {
   dispatchRequestTrackDetails: PropTypes.func,
   trackDetails: PropTypes.shape({
     artistName: PropTypes.string,
+    wrapperType: PropTypes.string,
     country: PropTypes.string,
     primaryGenreName: PropTypes.string,
     collectionName: PropTypes.string,
     trackName: PropTypes.string,
     imageUrl: PropTypes.string,
     artworkUrl100: PropTypes.string,
-    previewUrl: PropTypes.string
+    previewUrl: PropTypes.string,
+    duration: PropTypes.number,
+    trackTimeMillis: PropTypes.number,
+    kind: PropTypes.string
   })
 };
 

@@ -39,5 +39,10 @@ module.exports = {
     it: false,
     expect: false,
     describe: false
+  },
+  settings: {
+    react: {
+      version: 'detect'
+    }
   }
 };

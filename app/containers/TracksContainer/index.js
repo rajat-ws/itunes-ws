@@ -14,12 +14,7 @@ import If from '@app/components/If';
 import TrackComponent from '@app/components/TrackComponent/index';
 import tracksContainerSaga from './saga';
 import { tracksContainerCreators } from './reducer';
-import {
-  selectTrackDetails,
-  selectTrackName,
-  selectTracksData,
-  selectTracksLoading
-} from './selectors';
+import { selectTrackDetails, selectTrackName, selectTracksData, selectTracksLoading } from './selectors';
 
 const { Search } = Input;
 
@@ -123,16 +118,9 @@ export function TracksContainer({
 
   return (
     <>
-      <Container
-        maxWidth={maxWidth}
-        padding={padding}
-        data-testid="tracks-container"
-      >
+      <Container maxWidth={maxWidth} padding={padding} data-testid="tracks-container">
         <StyledSearchContainer>
-          <TitleCard
-            title={intl.formatMessage({ id: 'itunes_title' })}
-            maxWidth={maxWidth}
-          >
+          <TitleCard title={intl.formatMessage({ id: 'itunes_title' })} maxWidth={maxWidth}>
             <T id="track_search_default" paddingBottom={1} />
             <Search
               type="text"
@@ -180,16 +168,13 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   const { requestGetTracks, clearTracksData } = tracksContainerCreators;
   return {
-    dispatchRequestTracksData: trackName =>
-      dispatch(requestGetTracks(trackName)),
+    dispatchRequestTracksData: trackName => dispatch(requestGetTracks(trackName)),
     dispatchClearTracksData: () => dispatch(clearTracksData())
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+// eslint-disable-next-line prettier/prettier
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(
   injectIntl,

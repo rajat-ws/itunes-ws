@@ -87,12 +87,7 @@ const ButtonLabel = styled.span`
   }
 `;
 
-export function TrackComponent({
-  trackData,
-  isShowDetailsButton,
-  isShowDetails,
-  handlePauseTrackWrapper
-}) {
+export function TrackComponent({ trackData, isShowDetailsButton, isShowDetails, handlePauseTrackWrapper }) {
   const [isTrackPlaying, setIsTrackPlaying] = useState(false);
 
   const {
@@ -129,36 +124,24 @@ export function TrackComponent({
 
   return (
     <TrackCardContainer data-testid="track-component">
-      <If
-        condition={!isEmpty(imageUrl)}
-        otherwise={<Image>No image available</Image>}
-      >
+      <If condition={!isEmpty(imageUrl)} otherwise={<Image>No image available</Image>}>
         <Image src={imageUrl} width="80%" />
       </If>
 
       <StyledDescription>
-        <If
-          condition={!isEmpty(artistName)}
-          otherwise={<Paragraph>No artist name available</Paragraph>}
-        >
+        <If condition={!isEmpty(artistName)} otherwise={<Paragraph>No artist name available</Paragraph>}>
           <Paragraph>
             <StyledSpan> Artist name: </StyledSpan> {artistName}
           </Paragraph>
         </If>
 
-        <If
-          condition={!isEmpty(collectionName)}
-          otherwise={<Paragraph>No collection name available</Paragraph>}
-        >
+        <If condition={!isEmpty(collectionName)} otherwise={<Paragraph>No collection name available</Paragraph>}>
           <Paragraph>
             <StyledSpan> Collection name: </StyledSpan> {collectionName}
           </Paragraph>
         </If>
 
-        <If
-          condition={!isEmpty(trackName)}
-          otherwise={<Paragraph>No track name available</Paragraph>}
-        >
+        <If condition={!isEmpty(trackName)} otherwise={<Paragraph>No track name available</Paragraph>}>
           <Paragraph>
             <StyledSpan> Track name: </StyledSpan> {trackName}
           </Paragraph>
@@ -179,8 +162,7 @@ export function TrackComponent({
 
           {trackDuration && (
             <Paragraph>
-              <StyledSpan> Duration: </StyledSpan>{' '}
-              {Math.floor(trackDuration / 60000)}:
+              <StyledSpan> Duration: </StyledSpan> {Math.floor(trackDuration / 60000)}:
               {Math.floor(trackDuration / 1000) % 60}s
             </Paragraph>
           )}

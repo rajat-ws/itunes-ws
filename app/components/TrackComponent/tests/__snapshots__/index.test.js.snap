@@ -54,7 +54,7 @@ exports[`<TrackComponent /> should render and match the snapshot 1`] = `
             class="ant-typography"
           >
             <span
-              class="TrackComponent__StyledSpan-sc-1y7fh5t-2 hHSjOx"
+              class="TrackComponent__StyledSpan-sc-1y7fh5t-2 jsYJCu"
             >
                Artist name: 
             </span>
@@ -65,7 +65,7 @@ exports[`<TrackComponent /> should render and match the snapshot 1`] = `
             class="ant-typography"
           >
             <span
-              class="TrackComponent__StyledSpan-sc-1y7fh5t-2 hHSjOx"
+              class="TrackComponent__StyledSpan-sc-1y7fh5t-2 jsYJCu"
             >
                Collection name: 
             </span>
@@ -76,7 +76,7 @@ exports[`<TrackComponent /> should render and match the snapshot 1`] = `
             class="ant-typography"
           >
             <span
-              class="TrackComponent__StyledSpan-sc-1y7fh5t-2 hHSjOx"
+              class="TrackComponent__StyledSpan-sc-1y7fh5t-2 jsYJCu"
             >
                Track name: 
             </span>
@@ -91,7 +91,7 @@ exports[`<TrackComponent /> should render and match the snapshot 1`] = `
             class="TrackComponent__PlayTrackBtn-sc-1y7fh5t-3 khRFCr"
           >
             <span
-              class="TrackComponent__ButtonLabel-sc-1y7fh5t-6 fSyCiY"
+              class="TrackComponent__ButtonLabel-sc-1y7fh5t-6 ftUulf"
             >
                Play 
             </span>

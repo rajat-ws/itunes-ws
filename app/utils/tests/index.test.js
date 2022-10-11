@@ -47,7 +47,7 @@ describe('Tests for isLocal method', () => {
 describe('Tests for mapKeysDeep method', () => {
   let fn;
   beforeAll(() => {
-    fn = (keys) => camelCase(keys);
+    fn = keys => camelCase(keys);
   });
   it('should return something objet', () => {
     const obj = {

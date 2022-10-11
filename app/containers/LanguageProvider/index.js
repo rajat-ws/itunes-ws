@@ -28,9 +28,8 @@ LanguageProvider.propTypes = {
   children: PropTypes.element.isRequired
 };
 
-const mapStateToProps = createSelector(makeSelectLocale(), (locale) => ({
-  locale
-}));
+// eslint-disable-next-line prettier/prettier
+const mapStateToProps = createSelector(makeSelectLocale(), locale => ({ locale }));
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -38,4 +37,5 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+// eslint-disable-next-line prettier/prettier
 export default connect(mapStateToProps, mapDispatchToProps)(LanguageProvider);

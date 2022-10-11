@@ -18,6 +18,7 @@ export const initialState = {
   trackDetailsError: null
 };
 
+// eslint-disable-next-line prettier/prettier
 export const { Types: trackContainerTypes, Creators: tracksContainerCreators } = createActions({
   requestGetTracks: ['trackName'],
   successGetTracks: ['data'],

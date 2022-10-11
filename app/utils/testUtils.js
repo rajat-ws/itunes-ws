@@ -9,7 +9,7 @@ import { DEFAULT_LOCALE, translationMessages } from '@app/i18n';
 import ConnectedLanguageProvider from '@containers/LanguageProvider';
 import { IntlGlobalProvider } from '@components/IntlGlobalProvider';
 
-export const renderWithIntl = (children) =>
+export const renderWithIntl = children =>
   render(
     <IntlProvider locale={DEFAULT_LOCALE} messages={translationMessages[DEFAULT_LOCALE]}>
       <IntlGlobalProvider>{children}</IntlGlobalProvider>
@@ -40,7 +40,7 @@ export const renderProvider = (children, history) => {
     </Provider>
   );
 };
-export const timeout = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+export const timeout = ms => new Promise(resolve => setTimeout(resolve, ms));
 export const apiResponseGenerator = (ok, data) => ({
   ok,
   data

@@ -31,7 +31,7 @@ exports[`TracksContainer Tests should render and match to the snapshot 1`] = `
             class="ant-card-body"
           >
             <p
-              class="T__StyledText-gjlic1-0 fmSCcf"
+              class="T__StyledText-gjlic1-0 fIbhJF"
               data-testid="t"
             >
               Search for tracks/artists

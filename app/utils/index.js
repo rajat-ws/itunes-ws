@@ -10,13 +10,13 @@ import routeConstants from './routeConstants';
  * @param {any} location
  * @returns {any}
  */
-export const getCurrentRouteDetails = (location) => {
+export const getCurrentRouteDetails = location => {
   if (!get(location, 'pathname')) {
     return null;
   }
   const route = find(
     Object.keys(routeConstants),
-    (key) => routeConstants[key].route === location.pathname || `${routeConstants[key].route}/` === location.pathname
+    key => routeConstants[key].route === location.pathname || `${routeConstants[key].route}/` === location.pathname
   );
   if (route) {
     return routeConstants[route];
@@ -25,7 +25,7 @@ export const getCurrentRouteDetails = (location) => {
 };
 export const mapKeysDeep = (obj, fn) => {
   if (Array.isArray(obj)) {
-    return obj.map((val) => mapKeysDeep(val, fn));
+    return obj.map(val => mapKeysDeep(val, fn));
   }
   if (typeof obj === 'object') {
     return Object.keys(obj).reduce((acc, current) => {

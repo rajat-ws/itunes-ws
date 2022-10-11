@@ -13,7 +13,7 @@ import { isEmpty } from 'lodash';
 import { colors, fonts } from '@app/themes/index';
 import If from '@components/If';
 
-const { Title, Paragraph } = Typography;
+const { Paragraph } = Typography;
 
 const TrackCardContainer = styled(Card)`
   && {
@@ -26,12 +26,6 @@ const TrackCardContainer = styled(Card)`
 const StyledDescription = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const StyledTitle = styled(Title)`
-  && {
-    ${fonts.size.xRegular}
-  }
 `;
 
 const StyledSpan = styled.span`
@@ -93,7 +87,7 @@ const ButtonLabel = styled.span`
   }
 `;
 
-export function TrackComponent({ singleTrackData, isShowDetailsButton, isShowDetails, handlePauseTrackWrapper }) {
+export function TrackComponent({ trackData, isShowDetailsButton, isShowDetails, handlePauseTrackWrapper }) {
   const [isTrackPlaying, setIsTrackPlaying] = useState(false);
   const {
     artistName,
@@ -107,7 +101,7 @@ export function TrackComponent({ singleTrackData, isShowDetailsButton, isShowDet
     primaryGenreName,
     kind,
     wrapperType
-  } = singleTrackData || {};
+  } = trackData;
   const audioRef = useRef(null);
   const history = useHistory();
 
@@ -134,10 +128,10 @@ export function TrackComponent({ singleTrackData, isShowDetailsButton, isShowDet
       </If>
 
       <StyledDescription>
-        <If condition={!isEmpty(artistName)} otherwise={<StyledTitle>No artist name available</StyledTitle>}>
-          <StyledTitle>
+        <If condition={!isEmpty(artistName)} otherwise={<Paragraph>No artist name available</Paragraph>}>
+          <Paragraph>
             <StyledSpan> Artist name: </StyledSpan> {artistName}
-          </StyledTitle>
+          </Paragraph>
         </If>
 
         <If condition={!isEmpty(collectionName)} otherwise={<Paragraph>No collection name available</Paragraph>}>
@@ -198,7 +192,7 @@ export function TrackComponent({ singleTrackData, isShowDetailsButton, isShowDet
 export default memo(TrackComponent);
 
 TrackComponent.propTypes = {
-  singleTrackData: PropTypes.shape({
+  trackData: PropTypes.shape({
     artistId: PropTypes.number,
     trackTimeMillis: PropTypes.number,
     trackId: PropTypes.number,

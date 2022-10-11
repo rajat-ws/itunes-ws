@@ -54,16 +54,16 @@ exports[`<TrackDetailsContainer /> container tests should render and match the s
             <div
               class="TrackComponent__StyledDescription-sc-1y7fh5t-1 ehlPZI"
             >
-              <h1
-                class="ant-typography TrackComponent__StyledTitle-sc-1y7fh5t-2 kLbayd"
+              <div
+                class="ant-typography"
               >
                 No artist name available
-              </h1>
+              </div>
               <div
                 class="ant-typography"
               >
                 <span
-                  class="TrackComponent__StyledSpan-sc-1y7fh5t-3 dZqfKg"
+                  class="TrackComponent__StyledSpan-sc-1y7fh5t-2 hHSjOx"
                 >
                    Collection name: 
                 </span>
@@ -74,7 +74,7 @@ exports[`<TrackDetailsContainer /> container tests should render and match the s
                 class="ant-typography"
               >
                 <span
-                  class="TrackComponent__StyledSpan-sc-1y7fh5t-3 dZqfKg"
+                  class="TrackComponent__StyledSpan-sc-1y7fh5t-2 hHSjOx"
                 >
                    Track name: 
                 </span>
@@ -85,7 +85,7 @@ exports[`<TrackDetailsContainer /> container tests should render and match the s
                 class="ant-typography"
               >
                 <span
-                  class="TrackComponent__StyledSpan-sc-1y7fh5t-3 dZqfKg"
+                  class="TrackComponent__StyledSpan-sc-1y7fh5t-2 hHSjOx"
                 >
                    Country: 
                 </span>
@@ -95,7 +95,7 @@ exports[`<TrackDetailsContainer /> container tests should render and match the s
                 class="ant-typography"
               >
                 <span
-                  class="TrackComponent__StyledSpan-sc-1y7fh5t-3 dZqfKg"
+                  class="TrackComponent__StyledSpan-sc-1y7fh5t-2 hHSjOx"
                 >
                    Kind: 
                 </span>
@@ -105,7 +105,7 @@ exports[`<TrackDetailsContainer /> container tests should render and match the s
                 class="ant-typography"
               >
                 <span
-                  class="TrackComponent__StyledSpan-sc-1y7fh5t-3 dZqfKg"
+                  class="TrackComponent__StyledSpan-sc-1y7fh5t-2 hHSjOx"
                 >
                    Genre: 
                 </span>
@@ -115,7 +115,7 @@ exports[`<TrackDetailsContainer /> container tests should render and match the s
                 class="ant-typography"
               >
                 <span
-                  class="TrackComponent__StyledSpan-sc-1y7fh5t-3 dZqfKg"
+                  class="TrackComponent__StyledSpan-sc-1y7fh5t-2 hHSjOx"
                 >
                    Wrapper Type: 
                 </span>
@@ -123,13 +123,13 @@ exports[`<TrackDetailsContainer /> container tests should render and match the s
               </div>
             </div>
             <div
-              class="TrackComponent__ButtonWrapper-sc-1y7fh5t-6 hVNmQJ"
+              class="TrackComponent__ButtonWrapper-sc-1y7fh5t-5 dehKAG"
             >
               <button
-                class="TrackComponent__PlayTrackBtn-sc-1y7fh5t-4 dlRTDI"
+                class="TrackComponent__PlayTrackBtn-sc-1y7fh5t-3 khRFCr"
               >
                 <span
-                  class="TrackComponent__ButtonLabel-sc-1y7fh5t-7 doqWYl"
+                  class="TrackComponent__ButtonLabel-sc-1y7fh5t-6 fSyCiY"
                 >
                    Play 
                 </span>

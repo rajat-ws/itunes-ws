@@ -102,7 +102,7 @@ export function TracksContainer({
               ParentComponent={TrackGrid}
               renderItem={(item, index) => (
                 <TrackComponent
-                  singleTrackData={item}
+                  trackData={item}
                   isShowDetailsButton
                   handlePauseTrackWrapper={handlePauseTrackWrapper}
                   isShowDetails={false}
@@ -140,7 +140,8 @@ TracksContainer.propTypes = {
   maxWidth: PropTypes.number,
   padding: PropTypes.number,
   trackName: PropTypes.string,
-  singleTrackData: PropTypes.array,
+  artistName: PropTypes.string,
+  trackData: PropTypes.object,
   dispatchRequestTracksData: PropTypes.func,
   dispatchRequestTrackDetails: PropTypes.func,
   dispatchClearTracksData: PropTypes.func,
@@ -154,7 +155,8 @@ TracksContainer.propTypes = {
 
 TracksContainer.defaultProps = {
   padding: 2,
-  maxWidth: 32
+  maxWidth: 32,
+  trackData: {}
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -85,6 +85,7 @@
     "@formatjs/intl-relativetimeformat": "^9.1.6",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "12.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
     "antd": "^4.9.3",
     "apisauce": "2.1.1",
     "chalk": "4.1.1",

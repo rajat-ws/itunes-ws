@@ -48,8 +48,8 @@ describe('TracksContainer selector tests', () => {
   });
 
   it('should select tracksData', () => {
-    const searchTrackDataSelector = selectTracksData();
-    expect(searchTrackDataSelector(mockedState)).toEqual(tracksData);
+    const searchsingleTrackDataSelector = selectTracksData();
+    expect(searchsingleTrackDataSelector(mockedState)).toEqual(tracksData);
   });
 
   it('should select the trackDetails', () => {

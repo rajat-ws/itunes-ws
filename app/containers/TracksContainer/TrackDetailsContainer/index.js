@@ -39,7 +39,7 @@ export function TrackDetailsContainer({ dispatchRequestTrackDetails, trackDetail
     <Wrapper>
       <If condition={!singleTrackLoading}>
         <TrackDetailsWrapper>
-          <TrackComponent singleTrackData={trackDetails} isShowDetails={true} />
+          <TrackComponent trackData={trackDetails} isShowDetails={true} />
         </TrackDetailsWrapper>
       </If>
     </Wrapper>
@@ -50,7 +50,6 @@ TrackDetailsContainer.propTypes = {
   dispatchRequestTrackDetails: PropTypes.func,
   singleTrackLoading: PropTypes.bool,
   trackDetails: PropTypes.shape({
-    artistName: PropTypes.string,
     wrapperType: PropTypes.string,
     country: PropTypes.string,
     primaryGenreName: PropTypes.string,

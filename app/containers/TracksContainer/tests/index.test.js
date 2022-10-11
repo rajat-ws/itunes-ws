@@ -53,7 +53,7 @@ describe('TracksContainer Tests', () => {
   });
 
   // testing for dispatchClearTracksData
-  it('should trigger the disptachTrackData while search input is being emptied', async () => {
+  it('should trigger the disptachsingleTrackData while search input is being emptied', async () => {
     let searchTrackNamesSpy = jest.fn();
     let clearTracksDataSpy = jest.fn();
     const { queryByTestId } = renderWithIntl(

@@ -12,7 +12,7 @@ import { compose } from 'redux';
 import { injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { useParams } from 'react-router-dom';
-import { selectSingleTrackLoading, selectTrackDetails } from '../selectors';
+import { selectTrackDetails } from '../selectors';
 import { tracksContainerCreators } from '../reducer';
 import { TrackComponent } from '@app/components/TrackComponent/index';
 import If from '@components/If';
@@ -28,7 +28,7 @@ const TrackDetailsWrapper = styled.div`
   padding: 2rem;
 `;
 
-export function TrackDetailsContainer({ dispatchRequestTrackDetails, trackDetails, singleTrackLoading }) {
+export function TrackDetailsContainer({ dispatchRequestTrackDetails, trackDetails }) {
   const { trackId } = useParams();
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export function TrackDetailsContainer({ dispatchRequestTrackDetails, trackDetail
 
   return (
     <Wrapper>
-      <If condition={!singleTrackLoading}>
+      <If condition={trackDetails}>
         <TrackDetailsWrapper>
           <TrackComponent trackData={trackDetails} isShowDetails={true} />
         </TrackDetailsWrapper>
@@ -48,7 +48,6 @@ export function TrackDetailsContainer({ dispatchRequestTrackDetails, trackDetail
 
 TrackDetailsContainer.propTypes = {
   dispatchRequestTrackDetails: PropTypes.func,
-  singleTrackLoading: PropTypes.bool,
   trackDetails: PropTypes.shape({
     wrapperType: PropTypes.string,
     country: PropTypes.string,
@@ -65,8 +64,7 @@ TrackDetailsContainer.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  trackDetails: selectTrackDetails(),
-  singleTrackLoading: selectSingleTrackLoading()
+  trackDetails: selectTrackDetails()
 });
 
 function mapDispatchToProps(dispatch) {

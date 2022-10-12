@@ -4,5 +4,6 @@
   "useTabs": false,
   "singleQuote": true,
   "trailingComma": "none",
-  "indent": 2
+  "indent": 2,
+  "arrowParens": "avoid"
 }

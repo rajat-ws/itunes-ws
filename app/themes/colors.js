@@ -6,19 +6,21 @@
  */
 
 const primary = '#fcedda';
+const primaryDark = '#674747';
 const text = '#fff';
 const secondary = '#1C6758';
-const background = '#1C6758';
+const background = '#256D85';
 const success = '#28a745';
 const error = '#dc3545';
 const gotoStories = '#1890ff';
-const primaryLight = '#3D8361';
+const primaryLight = '#5F6F94';
 
 const colors = {
   transparent: 'rgba(0,0,0,0)',
   // Example colors:
   text,
   primary,
+  primaryDark,
   primaryLight,
   secondary,
   success,

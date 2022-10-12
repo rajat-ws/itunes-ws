@@ -16,7 +16,7 @@ exports[`<TrackComponent /> should render and match the snapshot 1`] = `
         >
           <img
             class="ant-image-img"
-            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdribbble.com%2Fshots%2F14395014-Music-Logo&psig=AOvVaw3I_T0J8_ZRKW_g4VF_KmKz&ust=1630933127025000&source=images&cd=vfe&ved=2ahUKEwiT5uO-8efyAhWVHLcAHVSbCvQQjRx6BAgAEAk"
+            src="https://is3-ssl.mzstatic.com/image/thumb/Music124/v4/dd/64/78/dd6478bc-e684-1b69-2e4e-c7e1d6a36c0a/045635953260.jpg/100x100bb.jpg"
           />
           <div
             class="ant-image-mask"
@@ -50,39 +50,56 @@ exports[`<TrackComponent /> should render and match the snapshot 1`] = `
         <div
           class="TrackComponent__StyledDescription-sc-1y7fh5t-1 ehlPZI"
         >
-          <h1
-            class="ant-typography TrackComponent__StyledTitle-sc-1y7fh5t-2 kLbayd"
-          >
-            <i>
-               
-              Arijit
-               
-            </i>
-          </h1>
           <div
             class="ant-typography"
           >
+            <span
+              class="TrackComponent__StyledSpan-sc-1y7fh5t-2 jsYJCu"
+            >
+               Artist name: 
+            </span>
              
-            Some collection
-             
+            Tom MacDonald
           </div>
           <div
             class="ant-typography"
           >
-            No track name available
+            <span
+              class="TrackComponent__StyledSpan-sc-1y7fh5t-2 jsYJCu"
+            >
+               Collection name: 
+            </span>
+             
+            See You Tomorrow
+          </div>
+          <div
+            class="ant-typography"
+          >
+            <span
+              class="TrackComponent__StyledSpan-sc-1y7fh5t-2 jsYJCu"
+            >
+               Track name: 
+            </span>
+             
+            Greenday
           </div>
         </div>
-        <button
-          class="TrackComponent__PlayTrackBtn-sc-1y7fh5t-4 jJbCwT"
+        <div
+          class="TrackComponent__ButtonWrapper-sc-1y7fh5t-5 dehKAG"
         >
-          <span
-            class="TrackComponent__ButtonLabel-sc-1y7fh5t-5 bETzpv"
+          <button
+            class="TrackComponent__PlayTrackBtn-sc-1y7fh5t-3 khRFCr"
           >
-             Play 
-          </span>
-        </button>
+            <span
+              class="TrackComponent__ButtonLabel-sc-1y7fh5t-6 ftUulf"
+            >
+               Play 
+            </span>
+          </button>
+        </div>
         <audio
-          src="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/d4/06/39/d4063988-a5c8-974e-059b-5233110a322c/mzaf_2253161526891008132.plus.aac.p.m4a"
+          data-testid="trackAudio"
+          src="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/51/bb/61/51bb6190-6865-3050-af01-0f64502bc376/mzaf_14313183610807291436.plus.aac.p.m4a"
         />
       </div>
     </div>

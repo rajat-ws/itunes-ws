@@ -9,31 +9,37 @@ import { initialState } from './reducer';
 export const selectTracksContainerDomain = state => state.tracksContainer || initialState;
 
 export const selectTracksContainer = () =>
-  createSelector(
-    selectTracksContainerDomain,
-    substate => substate
-  );
+  // eslint-disable-next-line prettier/prettier
+  createSelector(selectTracksContainerDomain, substate => substate);
 
 export const selectTrackName = () =>
-  createSelector(
-    selectTracksContainerDomain,
-    substate => get(substate, 'trackName')
-  );
+  // eslint-disable-next-line prettier/prettier
+  createSelector(selectTracksContainerDomain, substate => get(substate, 'trackName'));
 
 export const selectTracksError = () =>
-  createSelector(
-    selectTracksContainerDomain,
-    substate => get(substate, 'tracksError')
-  );
+  // eslint-disable-next-line prettier/prettier
+  createSelector(selectTracksContainerDomain, substate => get(substate, 'tracksError'));
 
 export const selectTracksLoading = () =>
-  createSelector(
-    selectTracksContainerDomain,
-    substate => get(substate, 'tracksLoading')
-  );
+  // eslint-disable-next-line prettier/prettier
+  createSelector(selectTracksContainerDomain, substate => get(substate, 'tracksLoading'));
+
+export const selectSingleTrackLoading = () =>
+  // eslint-disable-next-line prettier/prettier
+  createSelector(selectTracksContainerDomain, substate => get(substate, 'singleTrackLoading'));
 
 export const selectTracksData = () =>
-  createSelector(
-    selectTracksContainerDomain,
-    substate => get(substate, 'tracksData')
-  );
+  // eslint-disable-next-line prettier/prettier
+  createSelector(selectTracksContainerDomain, substate => get(substate, 'tracksData'));
+
+export const selectTrackId = () =>
+  // eslint-disable-next-line prettier/prettier
+  createSelector(selectTracksContainerDomain, substate => get(substate, 'trackId'));
+
+export const selectTrackDetails = () =>
+  // eslint-disable-next-line prettier/prettier
+  createSelector(selectTracksContainerDomain, substate => get(substate, 'trackDetails'));
+
+export const selectTrackDetailsError = () =>
+  // eslint-disable-next-line prettier/prettier
+  createSelector(selectTracksContainerDomain, substate => get(substate, 'trackDetailsError'));

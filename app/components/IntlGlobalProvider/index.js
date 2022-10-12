@@ -11,7 +11,7 @@ export function IntlGlobalProvider({ children }) {
 }
 
 // setter function to set intl value inside tests
-export const setIntl = (intlValue) => {
+export const setIntl = intlValue => {
   intl = intlValue;
 };
 

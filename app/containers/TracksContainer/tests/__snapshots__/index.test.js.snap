@@ -4,7 +4,7 @@ exports[`TracksContainer Tests should render and match to the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="TracksContainer__Container-jv1ui9-2 exSGCG"
+      class="TracksContainer__Container-jv1ui9-2 buqqOa"
       data-testid="tracks-container"
     >
       <div
@@ -31,7 +31,7 @@ exports[`TracksContainer Tests should render and match to the snapshot 1`] = `
             class="ant-card-body"
           >
             <p
-              class="T__StyledText-gjlic1-0 fmSCcf"
+              class="T__StyledText-gjlic1-0 fIbhJF"
               data-testid="t"
             >
               Search for tracks/artists

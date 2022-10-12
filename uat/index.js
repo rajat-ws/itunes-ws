@@ -8,7 +8,7 @@ export async function redirect() {
     pathname = pathname.replace('/index.html', '');
   }
 
-  const pathnames = pathname.split('/').filter((val) => val !== '');
+  const pathnames = pathname.split('/').filter(val => val !== '');
   let loopCount = pathnames.length;
 
   for (let k = loopCount - 1; k > 0; k--) {

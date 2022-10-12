@@ -14,7 +14,7 @@ import If from '@app/components/If';
 import TrackComponent from '@app/components/TrackComponent/index';
 import tracksContainerSaga from './saga';
 import { tracksContainerCreators } from './reducer';
-import { selectTrackName, selectTracksData, selectTracksLoading } from './selectors';
+import { selectTrackDetails, selectTrackName, selectTracksData, selectTracksLoading } from './selectors';
 
 const { Search } = Input;
 
@@ -40,7 +40,7 @@ const Container = styled.div`
     gap: 2rem;
     width: 100%;
     margin: 0 auto;
-    padding: ${props => props.padding}rem;
+    padding: 1rem 0;
   }
 `;
 
@@ -79,7 +79,7 @@ export function TracksContainer({
   };
 
   const handlePauseTrackWrapper = ref => {
-    //track the current playing track
+    // track the current playing track
     setCurrentPlayingTrack(ref);
     const trackPaused = currentPlayingTrack?.current?.paused;
     // check if ref currentSrc matches with current playing track and if not, pause the current track
@@ -102,11 +102,11 @@ export function TracksContainer({
               ParentComponent={TrackGrid}
               renderItem={(item, index) => (
                 <TrackComponent
+                  trackData={item}
+                  isShowDetailsButton
                   handlePauseTrackWrapper={handlePauseTrackWrapper}
-                  trackUrl={item.previewUrl}
+                  isShowDetails={false}
                   key={index}
-                  imageUrl={item.artworkUrl100}
-                  {...item}
                 />
               )}
             />
@@ -140,7 +140,10 @@ TracksContainer.propTypes = {
   maxWidth: PropTypes.number,
   padding: PropTypes.number,
   trackName: PropTypes.string,
+  artistName: PropTypes.string,
+  trackData: PropTypes.object,
   dispatchRequestTracksData: PropTypes.func,
+  dispatchRequestTrackDetails: PropTypes.func,
   dispatchClearTracksData: PropTypes.func,
   intl: PropTypes.object,
   tracksError: PropTypes.object,
@@ -158,7 +161,8 @@ TracksContainer.defaultProps = {
 const mapStateToProps = createStructuredSelector({
   tracksData: selectTracksData(),
   trackName: selectTrackName(),
-  tracksLoading: selectTracksLoading()
+  tracksLoading: selectTracksLoading(),
+  trackDetails: selectTrackDetails()
 });
 
 function mapDispatchToProps(dispatch) {
@@ -169,10 +173,8 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+// eslint-disable-next-line prettier/prettier
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(
   injectIntl,

@@ -54,3 +54,15 @@ global.window.HTMLMediaElement.prototype.play = function playMock() {
 global.window.HTMLMediaElement.prototype.pause = function pauseMock() {
   this._mock.paused = true;
 };
+
+// Get and set audio duration
+Object.defineProperty(global.window.HTMLMediaElement.prototype, 'duration', {
+  get() {
+    return this._mock.duration;
+  },
+  set(value) {
+    // Reset the mock state to initial (paused) when we set the duration.
+    this._mock._resetMock(this);
+    this._mock.duration = value;
+  }
+});

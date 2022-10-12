@@ -14,7 +14,7 @@ describe('UAT script tests', () => {
       replace: jest.fn()
     };
     delete global.fetch;
-    global.fetch = jest.fn((url) => {
+    global.fetch = jest.fn(url => {
       let pathname = url.replace(window.location.origin, '');
       if (pathname === '/feat/spa') {
         return Promise.resolve({ ok: true });

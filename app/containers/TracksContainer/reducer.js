@@ -11,14 +11,22 @@ export const initialState = {
   trackName: null,
   tracksData: {},
   tracksError: null,
-  tracksLoading: false
+  tracksLoading: false,
+  singleTrackLoading: false,
+  trackId: null,
+  trackDetails: null,
+  trackDetailsError: null
 };
 
+// eslint-disable-next-line prettier/prettier
 export const { Types: trackContainerTypes, Creators: tracksContainerCreators } = createActions({
   requestGetTracks: ['trackName'],
   successGetTracks: ['data'],
   failureGetTracks: ['error'],
-  clearTracksData: {}
+  clearTracksData: {},
+  requestGetTrackDetails: ['trackId'],
+  successGetTrackDetails: ['data'],
+  failureGetTrackDetails: ['error']
 });
 
 /* eslint-disable default-case, no-param-reassign */
@@ -47,6 +55,25 @@ export const tracksContainerReducer = (state = initialState, action) =>
         draft.tracksData = {};
         draft.trackName = null;
         draft.tracksLoading = false;
+        break;
+
+      // track details
+      case trackContainerTypes.REQUEST_GET_TRACK_DETAILS:
+        draft.trackId = action.trackId;
+        draft.trackDetailsError = null;
+        draft.trackDetails = null;
+        draft.singleTrackLoading = true;
+        break;
+
+      case trackContainerTypes.SUCCESS_GET_TRACK_DETAILS:
+        draft.trackDetails = action.data;
+        draft.trackDetailsError = null;
+        draft.singleTrackLoading = false;
+        break;
+
+      case trackContainerTypes.FAILURE_GET_TRACK_DETAILS:
+        draft.singleTrackLoading = false;
+        draft.trackDetailsError = action.error;
         break;
     }
   });

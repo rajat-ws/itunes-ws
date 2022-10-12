@@ -21,7 +21,8 @@ export function* requestGetTracks(action) {
 export function* requestGetTrackDetails(action) {
   const tracksData = yield select(selectTracksData());
 
-  let foundTrackItem = tracksData?.results?.find(track => track?.trackId === action.trackId);
+  let foundTrackItem = tracksData?.data?.results?.find(track => track?.trackId === action.trackId);
+
   if (foundTrackItem) {
     yield put(successGetTrackDetails(foundTrackItem));
   } else {

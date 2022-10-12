@@ -6,6 +6,7 @@
 
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -37,7 +38,7 @@ export function TrackDetailsContainer({ dispatchRequestTrackDetails, trackDetail
 
   return (
     <Wrapper>
-      <If condition={trackDetails}>
+      <If condition={!isEmpty(trackDetails)}>
         <TrackDetailsWrapper>
           <TrackComponent trackData={trackDetails} isShowDetails={true} />
         </TrackDetailsWrapper>

@@ -12,7 +12,9 @@ import { apiResponseGenerator } from '@app/utils/testUtils';
 describe('TracksContainer saga tests', () => {
   const generator = tracksContainerSaga();
   let trackName = 'Arijit';
+  let trackId = 123456;
   let requestGetTracksGenerator = null;
+  let requestGetTrackDetailsGenerator = null;
 
   it('should start task to watch for REQUEST_GET_TRACKS', () => {
     expect(generator.next().value).toEqual(takeLatest(trackContainerTypes.REQUEST_GET_TRACKS, requestGetTracks));
@@ -64,21 +66,28 @@ describe('TracksContainer saga tests', () => {
     );
   });
 
-  // it('should ensure that the action SUCCESS_GET_TRACK_DETAILS is dispatched when the api call succeeds', () => {
-  //   requestGetTrackDetailsGenerator = requestGetTrackDetails({ trackId });
-  //   const dataObj = { 18556408: { name: 'song1', trackId: 18556408 } };
-  //   requestGetTrackDetailsGenerator.next(dataObj).value;
-  //   requestGetTrackDetailsGenerator.next(dataObj).value;
-  //   const data = { results: [{ trackId }] };
-  //   const dummyTrackDetailsObj = { name: 'song1', trackId: 18556408 };
-  //   console.log(requestGetTrackDetailsGenerator.next().value);
+  it('should ensure that the action SUCCESS_GET_TRACK_DETAILS is dispatched when the api call succeeds', () => {
+    const dataObj = { 123456: { name: 'song1', trackId: 123456 } };
+    requestGetTrackDetailsGenerator = requestGetTrackDetails({ trackId });
+    requestGetTrackDetailsGenerator.next();
 
-  //   expect(requestGetTrackDetailsGenerator.next().done).toBeTruthy();
-  //   expect(requestGetTrackDetailsGenerator.next(apiResponseGenerator(true, data))).toEqual(
-  //     put({
-  //       type: trackContainerTypes.SUCCESS_GET_TRACK_DETAILS,
-  //       response: { data, dummyTrackDetailsObj }
-  //     })
-  //   );
-  // });
+    expect(requestGetTrackDetailsGenerator.next(dataObj).value).toEqual(
+      put({
+        type: trackContainerTypes.SUCCESS_GET_TRACK_DETAILS,
+        data: dataObj[trackId]
+      })
+    );
+  });
+
+  it('should ensure that the action FAILURE_GET_TRACK_DETAILS is dispatched when the api call fails', () => {
+    const dataObj = {};
+    requestGetTrackDetailsGenerator = requestGetTrackDetails({});
+    requestGetTrackDetailsGenerator.next();
+
+    expect(requestGetTrackDetailsGenerator.next(dataObj).value).toEqual(
+      put({
+        type: trackContainerTypes.FAILURE_GET_TRACK_DETAILS
+      })
+    );
+  });
 });

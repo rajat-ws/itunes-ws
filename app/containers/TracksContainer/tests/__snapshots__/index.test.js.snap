@@ -159,6 +159,7 @@ exports[`TracksContainer Tests should render and match to the snapshot 1`] = `
               >
                 <button
                   class="TrackComponent__ShowDetailsBtn-sc-1y7fh5t-4 cxivdz"
+                  data-testid="showDetails"
                 >
                   <span
                     class="TrackComponent__ButtonLabel-sc-1y7fh5t-6 ftUulf"
@@ -247,6 +248,7 @@ exports[`TracksContainer Tests should render and match to the snapshot 1`] = `
               >
                 <button
                   class="TrackComponent__ShowDetailsBtn-sc-1y7fh5t-4 cxivdz"
+                  data-testid="showDetails"
                 >
                   <span
                     class="TrackComponent__ButtonLabel-sc-1y7fh5t-6 ftUulf"

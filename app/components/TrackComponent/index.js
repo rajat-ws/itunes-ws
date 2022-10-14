@@ -120,7 +120,9 @@ export function TrackComponent({ trackData, isShowDetailsButton, isShowDetails, 
     handlePauseTrackWrapper(audioRef);
   };
 
-  const handleTrackDetailsRoute = trackId => history.push(`/tracks/${trackId}`);
+  const handleTrackDetailsRoute = trackId => {
+    history.push(`/tracks/${trackId}`);
+  };
 
   return (
     <TrackCardContainer data-testid="track-component">
@@ -171,7 +173,7 @@ export function TrackComponent({ trackData, isShowDetailsButton, isShowDetails, 
 
       <ButtonWrapper>
         <If condition={isShowDetailsButton}>
-          <ShowDetailsBtn onClick={() => handleTrackDetailsRoute(trackId)}>
+          <ShowDetailsBtn data-testid="showDetails" onClick={() => handleTrackDetailsRoute(trackId)}>
             <ButtonLabel> Show Details </ButtonLabel>
           </ShowDetailsBtn>
         </If>

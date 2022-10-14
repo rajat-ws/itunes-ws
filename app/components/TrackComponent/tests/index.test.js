@@ -46,19 +46,4 @@ describe('<TrackComponent />', () => {
     await timeout(500);
     expect(button).toHaveTextContent(/pause/i);
   });
-
-  it('should call the handlePlayPause on PlayTrackBtn when it is clicked', async () => {
-    const handlePlayPauseSpy = jest.fn();
-
-    const { queryByRole, queryByTestId } = renderProvider(
-      <TrackComponent trackData={MOCK_TRACK_DATA} handlePauseTrackWrapper={handlePauseTrackWrapperSpy} />
-    );
-    const audio = queryByTestId('trackAudio');
-    const button = queryByRole('button');
-
-    fireEvent.click(button, { onclick: handlePlayPauseSpy() });
-    await timeout(500);
-    expect(handlePlayPauseSpy).toBeCalled();
-    expect(handlePauseTrackWrapperSpy).toBeCalledWith({ current: audio });
-  });
 });

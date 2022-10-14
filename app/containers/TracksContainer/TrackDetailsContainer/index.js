@@ -38,7 +38,7 @@ export function TrackDetailsContainer({ dispatchRequestTrackDetails, trackDetail
 
   return (
     <Wrapper>
-      <If condition={!isEmpty(trackDetails)}>
+      <If condition={!isEmpty(trackDetails)} otherwise={`No track details available for track id: ${trackId}`}>
         <TrackDetailsWrapper>
           <TrackComponent trackData={trackDetails} isShowDetails={true} />
         </TrackDetailsWrapper>

@@ -15,7 +15,10 @@ describe('TracksContainer Tests', () => {
   });
   it('should render and match to the snapshot', () => {
     const { baseElement } = renderWithIntl(
-      <TracksContainer dispatchRequestTracksData={mockdispatchRequestTracksData} />
+      <TracksContainer
+        dispatchRequestTracksData={mockdispatchRequestTracksData}
+        tracksData={{ 1: { name: 'song1' }, 2: { name: 'song1' } }}
+      />
     );
     expect(baseElement).toMatchSnapshot();
   });
@@ -23,7 +26,10 @@ describe('TracksContainer Tests', () => {
   // dispatch track names
   it('should call dispatchRequestTracksData on change', async () => {
     const { queryByTestId } = renderWithIntl(
-      <TracksContainer dispatchRequestTracksData={mockdispatchRequestTracksData} />
+      <TracksContainer
+        dispatchRequestTracksData={mockdispatchRequestTracksData}
+        tracksData={{ 1: { name: 'song1' }, 2: { name: 'song1' } }}
+      />
     );
     fireEvent.change(queryByTestId('search-bar'), {
       target: { value: 'Arijit' }
@@ -34,21 +40,9 @@ describe('TracksContainer Tests', () => {
 
   // testing For component
   it('should render For component when tracksData is available', async () => {
-    const data = {
-      resultCount: 2,
-      results: [
-        {
-          id: 1,
-          name: 'First data'
-        },
-        {
-          id: 2,
-          name: 'Second Data'
-        }
-      ]
-    };
+    let tracksDummyData = { 1: { name: 'song1' }, 2: { name: 'song1' } };
     await timeout(500);
-    const { queryByTestId } = renderProvider(<TracksContainer tracksData={data} />);
+    const { queryByTestId } = renderProvider(<TracksContainer tracksData={tracksDummyData} />);
     expect(queryByTestId('for')).toBeInTheDocument();
   });
 
@@ -57,7 +51,11 @@ describe('TracksContainer Tests', () => {
     let searchTrackNamesSpy = jest.fn();
     let clearTracksDataSpy = jest.fn();
     const { queryByTestId } = renderWithIntl(
-      <TracksContainer dispatchRequestTracksData={searchTrackNamesSpy} dispatchClearTracksData={clearTracksDataSpy} />
+      <TracksContainer
+        tracksData={{ 1: { name: 'song1' }, 2: { name: 'song1' } }}
+        dispatchRequestTracksData={searchTrackNamesSpy}
+        dispatchClearTracksData={clearTracksDataSpy}
+      />
     );
 
     fireEvent.change(queryByTestId('search-bar'), {

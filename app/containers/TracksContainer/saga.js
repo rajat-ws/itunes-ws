@@ -11,7 +11,7 @@ export function* requestGetTracks(action) {
   const { data, ok } = res;
 
   const tracksDataResponse = data?.results;
-  const optimisedTrackData = tracksDataResponse?.reduce((obj, item) => ({ ...obj, [item.trackId]: { ...item } }), []);
+  const optimisedTrackData = tracksDataResponse?.reduce((obj, item) => ({ ...obj, [item.trackId]: { ...item } }), {});
   //check if ok
   if (ok) {
     yield put(successGetTracks(optimisedTrackData));

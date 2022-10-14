@@ -18,7 +18,7 @@ const { Paragraph } = Typography;
 const TrackCardContainer = styled(Card)`
   && {
     border-radius: 0.5rem;
-    width: ${props => (props.width ? props.width : '25rem')};
+    width: 25rem;
     border: 1px solid ${colors.secondary};
     text-align: center;
 `;

@@ -10,9 +10,11 @@ export function* requestGetTracks(action) {
   const res = yield call(getSongs, action.trackName);
   const { data, ok } = res;
 
+  const tracksDataResponse = data?.results;
+  const optimisedTrackData = tracksDataResponse?.reduce((obj, item) => ({ ...obj, [item.trackId]: { ...item } }), {});
   //check if ok
   if (ok) {
-    yield put(successGetTracks(data));
+    yield put(successGetTracks(optimisedTrackData));
   } else {
     yield put(failureGetTracks(data));
   }
@@ -20,9 +22,7 @@ export function* requestGetTracks(action) {
 
 export function* requestGetTrackDetails(action) {
   const tracksData = yield select(selectTracksData());
-
-  let foundTrackItem = tracksData?.data?.results?.find(track => track?.trackId === action.trackId);
-
+  let foundTrackItem = tracksData[action.trackId];
   if (foundTrackItem) {
     yield put(successGetTrackDetails(foundTrackItem));
   } else {

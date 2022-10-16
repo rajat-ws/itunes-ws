@@ -4,48 +4,58 @@
 
 /* eslint-disable redux-saga/yield-effects */
 import { takeLatest, call, put } from 'redux-saga/effects';
-import { getSongs } from '@services/itunesApi';
-import { apiResponseGenerator } from '@utils/testUtils';
 import tracksContainerSaga, { requestGetTrackDetails, requestGetTracks } from '../saga';
 import { trackContainerTypes } from '../reducer';
+import { getSongs } from '@app/services/itunesApi';
+import { apiResponseGenerator } from '@app/utils/testUtils';
 
 describe('TracksContainer saga tests', () => {
   const generator = tracksContainerSaga();
-  const trackName = 'Arijit';
-  const trackId = 123456;
-  let requestSongsGenerator = requestGetTracks({ trackName });
-  let requestTrackIdGenerator = requestGetTrackDetails({ trackId });
+  let trackName = 'Arijit';
+  let trackId = 123456;
+  let requestGetTracksGenerator = null;
+  let requestGetTrackDetailsGenerator = null;
 
-  it('should start task to watch for REQUEST_GET_TRACKS action', () => {
+  it('should start task to watch for REQUEST_GET_TRACKS', () => {
     expect(generator.next().value).toEqual(takeLatest(trackContainerTypes.REQUEST_GET_TRACKS, requestGetTracks));
   });
 
-  it('should ensure that the action FAILURE_GET_TRACKS is dispatched when the api call fails', () => {
-    const res = requestSongsGenerator.next().value;
+  it('should start task to watch for SUCCESS_GET_TRACKS', () => {
+    requestGetTracksGenerator = requestGetTracks({ trackName });
+    const res = requestGetTracksGenerator.next().value;
     expect(res).toEqual(call(getSongs, trackName));
-    const errorResponse = {
-      errorMessage: 'There was an error while fetching requested information.'
+
+    const trackResponse = {
+      // eslint-disable-next-line prettier/prettier
+      results: [
+        { name: 'song1', trackId: 1 },
+        { name: 'song2', trackId: 2 }
+      ]
     };
-    expect(requestSongsGenerator.next(apiResponseGenerator(false, errorResponse)).value).toEqual(
+
+    const expectedRes = { 1: { name: 'song1', trackId: 1 }, 2: { name: 'song2', trackId: 2 } };
+    expect(requestGetTracksGenerator.next(apiResponseGenerator(true, trackResponse)).value).toEqual(
       put({
-        type: trackContainerTypes.FAILURE_GET_TRACKS,
-        error: errorResponse
+        type: trackContainerTypes.SUCCESS_GET_TRACKS,
+        data: expectedRes
       })
     );
   });
 
-  it('should ensure that the action SUCCESS_GET_TRACKS is dispatched when the api call succeeds', () => {
-    requestSongsGenerator = requestGetTracks({ trackName });
-    const res = requestSongsGenerator.next().value;
+  it('should start task to watch for FAILURE_GET_TRACKS', () => {
+    trackName = 'Arijit';
+    requestGetTracksGenerator = requestGetTracks({ trackName });
+    const res = requestGetTracksGenerator.next().value;
     expect(res).toEqual(call(getSongs, trackName));
-    const sucessSongsResponse = {
-      resultCount: 0,
-      items: [{ songName: 'Naina', songArtist: 'Arijit Singh' }]
+
+    const errorResponse = {
+      errorMessage: 'There is an error while fetching the tracks data'
     };
-    expect(requestSongsGenerator.next(apiResponseGenerator(true, sucessSongsResponse)).value).toEqual(
+
+    expect(requestGetTracksGenerator.next(apiResponseGenerator(false, errorResponse)).value).toEqual(
       put({
-        type: trackContainerTypes.SUCCESS_GET_TRACKS,
-        data: sucessSongsResponse
+        type: trackContainerTypes.FAILURE_GET_TRACKS,
+        error: errorResponse
       })
     );
   });
@@ -57,15 +67,26 @@ describe('TracksContainer saga tests', () => {
   });
 
   it('should ensure that the action SUCCESS_GET_TRACK_DETAILS is dispatched when the api call succeeds', () => {
-    requestTrackIdGenerator = requestGetTrackDetails({ trackId });
-    requestTrackIdGenerator.next().value;
-    const succcessTrackIdResponse = {
-      results: [{ trackId }]
-    };
-    expect(requestTrackIdGenerator.next(apiResponseGenerator(true, succcessTrackIdResponse)).value).toEqual(
+    const dataObj = { 123456: { name: 'song1', trackId: 123456 } };
+    requestGetTrackDetailsGenerator = requestGetTrackDetails({ trackId });
+    requestGetTrackDetailsGenerator.next();
+
+    expect(requestGetTrackDetailsGenerator.next(dataObj).value).toEqual(
       put({
         type: trackContainerTypes.SUCCESS_GET_TRACK_DETAILS,
-        data: { trackId }
+        data: dataObj[trackId]
+      })
+    );
+  });
+
+  it('should ensure that the action FAILURE_GET_TRACK_DETAILS is dispatched when the api call fails', () => {
+    const dataObj = {};
+    requestGetTrackDetailsGenerator = requestGetTrackDetails({});
+    requestGetTrackDetailsGenerator.next();
+
+    expect(requestGetTrackDetailsGenerator.next(dataObj).value).toEqual(
+      put({
+        type: trackContainerTypes.FAILURE_GET_TRACK_DETAILS
       })
     );
   });

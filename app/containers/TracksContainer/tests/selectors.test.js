@@ -5,7 +5,9 @@ import {
   selectTrackDetailsError,
   selectTrackId,
   selectTracksData,
-  selectTracksError
+  selectTracksError,
+  selectSingleTrackLoading,
+  selectTracksContainerDomain
 } from '../selectors';
 
 describe('TracksContainer selector tests', () => {
@@ -16,6 +18,7 @@ describe('TracksContainer selector tests', () => {
   let trackId;
   let tracksError;
   let trackDetailsError;
+  let singleTrackLoading;
 
   beforeEach(() => {
     (trackName = 'Naina'), (tracksData = { songName: 'Naina', songArtist: 'Arijit Singh' });
@@ -24,6 +27,7 @@ describe('TracksContainer selector tests', () => {
     trackDetails = [{ trackId }];
     tracksError = 'something went wrong';
     trackDetailsError = 'error while fetching the track details';
+    singleTrackLoading = false;
 
     mockedState = {
       tracksContainer: {
@@ -32,14 +36,21 @@ describe('TracksContainer selector tests', () => {
         trackDetails,
         tracksError,
         trackDetailsError,
-        trackId
+        trackId,
+        singleTrackLoading
       }
     };
   });
 
+  it('should check for initial state when state  will be null', () => {
+    const { initialState } = require('../reducer');
+    mockedState = {};
+    expect(selectTracksContainerDomain(mockedState)).toBe(initialState);
+  });
+
   it('should select the trackName', () => {
     const trackNameSelector = selectTrackName();
-    expect(trackNameSelector(mockedState)).toEqual(trackName);
+    expect(trackNameSelector(mockedState)).toStrictEqual(trackName);
   });
 
   it('should select the tracksContainer state', () => {
@@ -48,8 +59,8 @@ describe('TracksContainer selector tests', () => {
   });
 
   it('should select tracksData', () => {
-    const searchsingleTrackDataSelector = selectTracksData();
-    expect(searchsingleTrackDataSelector(mockedState)).toEqual(tracksData);
+    const searchSingleTrackDataSelector = selectTracksData();
+    expect(searchSingleTrackDataSelector(mockedState)).toEqual(tracksData);
   });
 
   it('should select the trackDetails', () => {
@@ -65,6 +76,11 @@ describe('TracksContainer selector tests', () => {
   it('should select the trackDetailsError', () => {
     const trackErrorSelector = selectTrackDetailsError();
     expect(trackErrorSelector(mockedState)).toEqual(trackDetailsError);
+  });
+
+  it('should select the selectSingleTrackLoading', () => {
+    const trackDetailsLoadingSelector = selectSingleTrackLoading();
+    expect(trackDetailsLoadingSelector(mockedState)).toEqual(singleTrackLoading);
   });
 
   it('should select the trackError', () => {

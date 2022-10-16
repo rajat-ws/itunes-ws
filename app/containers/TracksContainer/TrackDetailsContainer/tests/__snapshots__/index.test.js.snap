@@ -10,7 +10,7 @@ exports[`<TrackDetailsContainer /> container tests should render and match the s
         class="TrackDetailsContainer__TrackDetailsWrapper-tevgmx-1 jKPgDN"
       >
         <div
-          class="ant-card ant-card-bordered TrackComponent__TrackCardContainer-sc-1y7fh5t-0 hZfrIv"
+          class="ant-card ant-card-bordered TrackComponent__TrackCardContainer-sc-1y7fh5t-0 jBWOdU"
           data-testid="track-component"
         >
           <div

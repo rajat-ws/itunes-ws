@@ -2,7 +2,7 @@ import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Input, Card, Skeleton } from 'antd';
-import { debounce, get, isEmpty } from 'lodash';
+import { debounce, isEmpty } from 'lodash';
 import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { injectSaga } from 'redux-injectors';
@@ -65,7 +65,7 @@ export function TracksContainer({
   const [currentPlayingTrack, setCurrentPlayingTrack] = useState(null);
 
   useEffect(() => {
-    if (trackName && !tracksData?.results?.length) {
+    if (trackName && !tracksData) {
       dispatchRequestTracksData(trackName);
     }
   }, []);
@@ -91,14 +91,12 @@ export function TracksContainer({
   const debouncedHandleOnChange = debounce(handleOnChange, 200);
 
   const renderTracksList = () => {
-    const loadedTrackSongs = get(tracksData, 'results', []);
-
     return (
-      <If condition={!isEmpty(loadedTrackSongs) || tracksLoading}>
+      <If condition={!isEmpty(tracksData) || tracksLoading}>
         <TitleCard>
           <Skeleton loading={tracksLoading} active>
             <For
-              of={loadedTrackSongs}
+              of={Object.values(tracksData)}
               ParentComponent={TrackGrid}
               renderItem={(item, index) => (
                 <TrackComponent
@@ -139,18 +137,16 @@ export function TracksContainer({
 TracksContainer.propTypes = {
   maxWidth: PropTypes.number,
   padding: PropTypes.number,
+  length: PropTypes.number,
+  tracksData: PropTypes.object,
   trackName: PropTypes.string,
   artistName: PropTypes.string,
-  trackData: PropTypes.object,
   dispatchRequestTracksData: PropTypes.func,
   dispatchRequestTrackDetails: PropTypes.func,
   dispatchClearTracksData: PropTypes.func,
   intl: PropTypes.object,
   tracksError: PropTypes.object,
-  tracksLoading: PropTypes.bool,
-  tracksData: PropTypes.shape({
-    results: PropTypes.array
-  })
+  tracksLoading: PropTypes.bool
 };
 
 TracksContainer.defaultProps = {

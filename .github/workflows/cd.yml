@@ -43,3 +43,6 @@ jobs:
           args: --acl public-read --follow-symlinks
         env:
           SOURCE_DIR: './build/'
+
+      - name: Clear Cloudfront Cache
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.DISTRIBUTION }} --paths "/*"

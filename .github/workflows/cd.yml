@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [16.x, 18.x]
     env:
       SOURCE_DIR: './build/'
       AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
@@ -33,15 +33,6 @@ jobs:
 
       - name: Install dependencies
         run: yarn
-
-      - name: Deploy storybooks and gh-pages
-        env:
-          DEPLOY_KEY: ${{secrets.ACTIONS_DEPLOY_KEY}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        run: |
-          eval "$(ssh-agent -s)"
-          ssh-add - <<< "${DEPLOY_KEY}"
-          yarn deploy
 
       - name: Build
         run: yarn build

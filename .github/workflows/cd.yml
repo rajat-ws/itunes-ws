@@ -1,4 +1,4 @@
-name: ITunes App CD
+name: ITUNES App CD
 on:
   push:
     branches: [master]
@@ -7,14 +7,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x]
-
+        node-version: [16.x]
     env:
       SOURCE_DIR: './build/'
-      AWS_REGION: ${{ secrets.AWS_REGION }}
       AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
       PATHS: '/*'
 
     steps:
@@ -34,15 +33,6 @@ jobs:
 
       - name: Install dependencies
         run: yarn
-
-      - name: Deploy storybooks and gh-pages
-        env:
-          DEPLOY_KEY: ${{secrets.ACTIONS_DEPLOY_KEY}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        run: |
-          eval "$(ssh-agent -s)"
-          ssh-add - <<< "${DEPLOY_KEY}"
-          yarn deploy
 
       - name: Build
         run: yarn build

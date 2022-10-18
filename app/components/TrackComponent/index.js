@@ -110,7 +110,6 @@ export function TrackComponent({ trackData, isShowDetailsButton, isShowDetails, 
     e.preventDefault();
 
     const isTrackPaused = audioRef.current?.paused;
-
     if (isTrackPaused) {
       audioRef.current.play();
     } else {

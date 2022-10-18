@@ -92,7 +92,10 @@ export function TracksContainer({
 
   const renderTracksList = () => {
     return (
-      <If condition={!isEmpty(tracksData) || tracksLoading}>
+      <If
+        condition={!isEmpty(tracksData) || tracksLoading}
+        otherwise={'Sorry, we could not find the particular tracks as per the requested query.'}
+      >
         <TitleCard>
           <Skeleton loading={tracksLoading} active>
             <For

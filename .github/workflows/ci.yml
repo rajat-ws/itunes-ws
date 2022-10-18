@@ -1,16 +1,24 @@
+# name of the workflow that's going to appear in the 'Actions' tab
 name: React Template CI
+# specifies the event that will tirgger this workflow -> here it's on pull request
 on:
   pull_request:
     branches: [master]
+    #  groups together all jobs in this workflow
 jobs:
-  build-and-test:
+# this is a job id -> build-and-test or build_and_test
+  build-and-test: 
+  # name of the job
     name: Build & Test
+    # github hosted runner is ubuntu latest and it configures the job to run on latest version
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [12.x]
 
+# grouping all the steps that will run inside build-and-test
     steps:
+    # version2 of checkout
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
@@ -19,6 +27,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install dependencies
+      # run keyword tells the job to execute a certain command
         run: yarn
       - name: Lint
         run: yarn lint

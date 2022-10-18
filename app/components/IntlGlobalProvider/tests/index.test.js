@@ -9,13 +9,13 @@ const reactIntl = require('react-intl');
 describe('Test for IntlGlobalProvider', () => {
   it('should return children', async () => {
     const mockUseIntl = jest.spyOn(reactIntl, 'useIntl');
-    const { queryByTestId } = render(
+    const { getByTestId } = render(
       <IntlGlobalProvider>
         <div data-testid="children">TEST</div>
       </IntlGlobalProvider>
     );
     expect(mockUseIntl).toBeCalled();
-    expect(queryByTestId('children')).toBeInTheDocument();
+    expect(getByTestId('children')).toBeInTheDocument();
   });
 });
 

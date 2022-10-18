@@ -41,16 +41,16 @@ describe('<TrackComponent />', () => {
   });
 
   it('should render the PLAY text on PlayTrackBtn button', () => {
-    const { queryByRole } = renderProvider(
+    const { getByRole } = renderProvider(
       <TrackComponent trackData={MOCK_TRACK_DATA} handlePauseTrackWrapper={handlePauseTrackWrapperSpy} />
     );
-    const button = queryByRole('button');
+    const button = getByRole('button');
 
     expect(button).toHaveTextContent(/play/i);
   });
 
   it('should render the PAUSE text on PlayTrackBtn button when the play is clicked', async () => {
-    const { queryByRole } = renderProvider(
+    const { getByRole } = renderProvider(
       <TrackComponent trackData={MOCK_TRACK_DATA} handlePauseTrackWrapper={handlePauseTrackWrapperSpy} />
     );
 
@@ -63,7 +63,7 @@ describe('<TrackComponent />', () => {
 
     // const mockUseRefSpy = jest.spyOn(React, 'useRef').mockReturnValueOnce(mockUseRef);
 
-    const button = queryByRole('button');
+    const button = getByRole('button');
     expect(button).toHaveTextContent(/play/i);
     fireEvent.click(button);
     await timeout(500);

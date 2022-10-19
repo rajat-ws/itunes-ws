@@ -54,20 +54,10 @@ describe('<TrackComponent />', () => {
       <TrackComponent trackData={MOCK_TRACK_DATA} handlePauseTrackWrapper={handlePauseTrackWrapperSpy} />
     );
 
-    // const mockUseRef = {
-    //   current: {
-    //     play: jest.fn(),
-    //     pause: jest.fn()
-    //   }
-    // };
-
-    // const mockUseRefSpy = jest.spyOn(React, 'useRef').mockReturnValueOnce(mockUseRef);
-
     const button = getByRole('button');
     expect(button).toHaveTextContent(/play/i);
     fireEvent.click(button);
     await timeout(500);
     expect(button).toHaveTextContent(/pause/i);
-    // expect(mockUseRefSpy).toHaveBeenCalled();
   });
 });

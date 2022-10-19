@@ -8,7 +8,9 @@
 import React from 'react';
 // import { fireEvent } from '@testing-library/dom';
 import { renderProvider } from '@utils/testUtils';
-import { TrackDetailsContainerTest as TrackDetailsContainer } from '../index';
+import { mapDispatchToProps, TrackDetailsContainerTest as TrackDetailsContainer } from '../index';
+import { MOCK_TRACK_DATA } from '@app/utils/mockData';
+import { tracksContainerCreators } from '../../reducer';
 
 describe('<TrackDetailsContainer /> container tests', () => {
   let trackDetails;
@@ -28,5 +30,15 @@ describe('<TrackDetailsContainer /> container tests', () => {
       <TrackDetailsContainer dispatchRequestTrackDetails={dispatchRequestTrackDetailsSpy} trackDetails={trackDetails} />
     );
     expect(baseElement).toMatchSnapshot();
+  });
+
+  it('should validate mapDispatchToProps actions', () => {
+    const dispatchSpy = jest.fn();
+    const trackId = MOCK_TRACK_DATA.trackId;
+    const { requestGetTrackDetails } = tracksContainerCreators;
+    const props = mapDispatchToProps(dispatchSpy);
+    props.dispatchRequestTrackDetails(trackId);
+    expect(dispatchSpy).toBeCalled();
+    expect(dispatchSpy).toHaveBeenCalledWith(requestGetTrackDetails(trackId));
   });
 });

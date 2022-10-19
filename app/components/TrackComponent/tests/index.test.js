@@ -49,7 +49,7 @@ describe('<TrackComponent />', () => {
     expect(button).toHaveTextContent(/play/i);
   });
 
-  it('should render the PAUSE text on PlayTrackBtn button when the play is clicked', async () => {
+  it.only('should render the PAUSE text on PlayTrackBtn button when the play is clicked', async () => {
     const { getByRole } = renderProvider(
       <TrackComponent trackData={MOCK_TRACK_DATA} handlePauseTrackWrapper={handlePauseTrackWrapperSpy} />
     );

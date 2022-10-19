@@ -65,7 +65,7 @@ export function TracksContainer({
   const [currentPlayingTrack, setCurrentPlayingTrack] = useState(null);
 
   useEffect(() => {
-    if (trackName && !tracksData) {
+    if (trackName && !tracksData?.length) {
       dispatchRequestTracksData(trackName);
     }
   }, []);
@@ -164,7 +164,7 @@ const mapStateToProps = createStructuredSelector({
   trackDetails: selectTrackDetails()
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   const { requestGetTracks, clearTracksData } = tracksContainerCreators;
   return {
     dispatchRequestTracksData: trackName => dispatch(requestGetTracks(trackName)),

@@ -4,7 +4,9 @@
 import React from 'react';
 import { renderProvider, renderWithIntl, timeout } from '@app/utils/testUtils';
 import { fireEvent } from '@testing-library/dom';
-import { TracksContainerTest as TracksContainer } from '../index';
+import { mapDispatchToProps, TracksContainerTest as TracksContainer } from '../index';
+import { MOCK_TRACK_DATA } from '@app/utils/mockData';
+import { tracksContainerCreators } from '../reducer';
 
 describe('TracksContainer Tests', () => {
   //testing for dispatchRequestTracksData
@@ -68,5 +70,17 @@ describe('TracksContainer Tests', () => {
     });
     await timeout(500);
     expect(clearTracksDataSpy).toBeCalled();
+  });
+
+  it('should validate mapDispatchToProps actions', () => {
+    const dispatchSpy = jest.fn();
+    const trackName = MOCK_TRACK_DATA.trackName;
+    const { requestGetTracks, clearTracksData } = tracksContainerCreators;
+    const props = mapDispatchToProps(dispatchSpy);
+    props.dispatchRequestTracksData(trackName);
+    props.dispatchClearTracksData();
+    expect(dispatchSpy).toBeCalled();
+    expect(dispatchSpy).toHaveBeenCalledWith(requestGetTracks(trackName));
+    expect(dispatchSpy).toHaveBeenCalledWith(clearTracksData());
   });
 });

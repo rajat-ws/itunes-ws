@@ -19,7 +19,7 @@ describe('<For />', () => {
 
   it('should render the number of elements passed as props and the parent should be a span', () => {
     const items = ['a', 'b'];
-    const { queryByTestId, getAllByTestId } = renderWithIntl(
+    const { getByTestId, getAllByTestId } = renderWithIntl(
       <For
         of={items}
         ParentComponent={props => <span {...props} data-testid="parent-span" />}
@@ -28,7 +28,7 @@ describe('<For />', () => {
     );
 
     expect(getAllByTestId('parent-span').length).toEqual(1);
-    expect(queryByTestId('parent-span').children.length).toEqual(items.length);
+    expect(getByTestId('parent-span').children.length).toEqual(items.length);
     expect(getAllByTestId('child').length).toEqual(items.length);
   });
 

@@ -4,7 +4,9 @@
 import React from 'react';
 import { renderProvider, renderWithIntl, timeout } from '@app/utils/testUtils';
 import { fireEvent } from '@testing-library/dom';
-import { TracksContainerTest as TracksContainer } from '../index';
+import { mapDispatchToProps, TracksContainerTest as TracksContainer } from '../index';
+import { MOCK_TRACK_DATA } from '@app/utils/mockData';
+import { tracksContainerCreators } from '../reducer';
 
 describe('TracksContainer Tests', () => {
   //testing for dispatchRequestTracksData
@@ -25,13 +27,13 @@ describe('TracksContainer Tests', () => {
 
   // dispatch track names
   it('should call dispatchRequestTracksData on change', async () => {
-    const { queryByTestId } = renderWithIntl(
+    const { getByTestId } = renderWithIntl(
       <TracksContainer
         dispatchRequestTracksData={mockdispatchRequestTracksData}
         tracksData={{ 1: { name: 'song1' }, 2: { name: 'song1' } }}
       />
     );
-    fireEvent.change(queryByTestId('search-bar'), {
+    fireEvent.change(getByTestId('search-bar'), {
       target: { value: 'Arijit' }
     });
     await timeout(500);
@@ -42,15 +44,15 @@ describe('TracksContainer Tests', () => {
   it('should render For component when tracksData is available', async () => {
     let tracksDummyData = { 1: { name: 'song1' }, 2: { name: 'song1' } };
     await timeout(500);
-    const { queryByTestId } = renderProvider(<TracksContainer tracksData={tracksDummyData} />);
-    expect(queryByTestId('for')).toBeInTheDocument();
+    const { getByTestId } = renderProvider(<TracksContainer tracksData={tracksDummyData} />);
+    expect(getByTestId('for')).toBeInTheDocument();
   });
 
   // testing for dispatchClearTracksData
   it('should trigger the disptachsingleTrackData while search input is being emptied', async () => {
     let searchTrackNamesSpy = jest.fn();
     let clearTracksDataSpy = jest.fn();
-    const { queryByTestId } = renderWithIntl(
+    const { getByTestId } = renderWithIntl(
       <TracksContainer
         tracksData={{ 1: { name: 'song1' }, 2: { name: 'song1' } }}
         dispatchRequestTracksData={searchTrackNamesSpy}
@@ -58,15 +60,27 @@ describe('TracksContainer Tests', () => {
       />
     );
 
-    fireEvent.change(queryByTestId('search-bar'), {
+    fireEvent.change(getByTestId('search-bar'), {
       target: { value: 'a' }
     });
     await timeout(500);
     expect(searchTrackNamesSpy).toBeCalled();
-    fireEvent.change(queryByTestId('search-bar'), {
+    fireEvent.change(getByTestId('search-bar'), {
       target: { value: '' }
     });
     await timeout(500);
     expect(clearTracksDataSpy).toBeCalled();
+  });
+
+  it('should validate mapDispatchToProps actions', () => {
+    const dispatchSpy = jest.fn();
+    const trackName = MOCK_TRACK_DATA.trackName;
+    const { requestGetTracks, clearTracksData } = tracksContainerCreators;
+    const props = mapDispatchToProps(dispatchSpy);
+    props.dispatchRequestTracksData(trackName);
+    props.dispatchClearTracksData();
+    expect(dispatchSpy).toBeCalled();
+    expect(dispatchSpy).toHaveBeenCalledWith(requestGetTracks(trackName));
+    expect(dispatchSpy).toHaveBeenCalledWith(clearTracksData());
   });
 });

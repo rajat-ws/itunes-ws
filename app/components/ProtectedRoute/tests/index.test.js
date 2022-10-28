@@ -34,10 +34,10 @@ describe('<ProtectedRoute />', () => {
   });
 
   it('should  render the component if user logged in and access protected route', () => {
-    const { queryByTestId } = renderProvider(
+    const { getByTestId } = renderProvider(
       <ProtectedRoute isLoggedIn={true} render={TracksContainer} exact={true} path="/" />
     );
-    expect(queryByTestId('tracks-container')).toBeTruthy();
+    expect(getByTestId('tracks-container')).toBeTruthy();
   });
 
   it('should not render component if user is not logged in', () => {

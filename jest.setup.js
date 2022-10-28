@@ -35,7 +35,22 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 global.window.HTMLMediaElement.prototype._mock = {
-  paused: true
+  paused: true,
+  duration: NaN,
+  _loaded: false,
+  // Emulates the audio file loading
+  _load: function audioInit(audio) {
+    // Note: we could actually load the file from this.src and get real duration
+    // and other metadata.
+    // See for example: https://github.com/59naga/mock-audio-element/blob/master/src/index.js
+    // For now, the 'duration' and other metadata has to be set manually in test code.
+    audio.dispatchEvent(new Event('loadedmetadata'));
+    audio.dispatchEvent(new Event('canplaythrough'));
+  },
+  // Reset audio object mock data to the initial state
+  _resetMock: function resetMock(audio) {
+    audio._mock = Object.assign({}, global.window.HTMLMediaElement.prototype._mock);
+  }
 };
 
 // Get "paused" value, it is automatically set to true / false when we play / pause the audio.
@@ -44,16 +59,6 @@ Object.defineProperty(global.window.HTMLMediaElement.prototype, 'paused', {
     return this._mock.paused;
   }
 });
-
-// Start the playback.
-global.window.HTMLMediaElement.prototype.play = function playMock() {
-  this._mock.paused = false;
-};
-
-// Start the playback.
-global.window.HTMLMediaElement.prototype.pause = function pauseMock() {
-  this._mock.paused = true;
-};
 
 // Get and set audio duration
 Object.defineProperty(global.window.HTMLMediaElement.prototype, 'duration', {
@@ -66,3 +71,25 @@ Object.defineProperty(global.window.HTMLMediaElement.prototype, 'duration', {
     this._mock.duration = value;
   }
 });
+
+// Start the playback.
+global.window.HTMLMediaElement.prototype.play = function playMock() {
+  if (!this._mock._loaded) {
+    // emulate the audio file load and metadata initialization
+    this._mock._load(this);
+  }
+  this._mock.paused = false;
+  this.dispatchEvent(new Event('play'));
+  // Note: we could
+};
+
+// Pause the playback
+global.window.HTMLMediaElement.prototype.pause = function pauseMock() {
+  this._mock.paused = true;
+  this.dispatchEvent(new Event('pause'));
+};
+
+global.window.HTMLMediaElement.prototype.emulateStop = function stopMock() {
+  this._mock.paused = true;
+  this.dispatchEvent(new Event('ended'));
+};

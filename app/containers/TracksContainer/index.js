@@ -65,7 +65,7 @@ export function TracksContainer({
   const [currentPlayingTrack, setCurrentPlayingTrack] = useState(null);
 
   useEffect(() => {
-    if (trackName && !tracksData) {
+    if (trackName && !tracksData?.length) {
       dispatchRequestTracksData(trackName);
     }
   }, []);
@@ -92,7 +92,10 @@ export function TracksContainer({
 
   const renderTracksList = () => {
     return (
-      <If condition={!isEmpty(tracksData) || tracksLoading}>
+      <If
+        condition={!isEmpty(tracksData) || tracksLoading}
+        otherwise={'Sorry, we could not find the particular tracks as per the requested query.'}
+      >
         <TitleCard>
           <Skeleton loading={tracksLoading} active>
             <For
@@ -161,7 +164,7 @@ const mapStateToProps = createStructuredSelector({
   trackDetails: selectTrackDetails()
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   const { requestGetTracks, clearTracksData } = tracksContainerCreators;
   return {
     dispatchRequestTracksData: trackName => dispatch(requestGetTracks(trackName)),

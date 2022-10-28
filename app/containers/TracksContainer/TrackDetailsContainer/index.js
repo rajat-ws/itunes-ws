@@ -68,7 +68,7 @@ const mapStateToProps = createStructuredSelector({
   trackDetails: selectTrackDetails()
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   const { requestGetTrackDetails } = tracksContainerCreators;
   return {
     dispatchRequestTrackDetails: trackId => dispatch(requestGetTrackDetails(trackId))
